@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prettier": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "element-plus": "^2.3.8",
@@ -16,11 +18,15 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "postcss-preset-env": "^9.1.0",
+    "prettier": "^3.0.1",
     "typescript": "^4.5.4",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.1",
     "vite": "^2.9.5",
-    "vue-tsc": "^0.34.7"
+    "vue-tsc": "^0.34.7",
+    "husky": "^8.0.0"
   }
 }

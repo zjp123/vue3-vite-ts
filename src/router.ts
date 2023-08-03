@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import ShallowReactiveCom from './pages/shallowReactive.vue'
 import WatcheffectCom from './pages/watcheffect.vue'
+import WXh5 from './pages/weixinh5.vue'
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     path: '/watcheffect',
     name: 'watcheffect',
     component: WatcheffectCom,
+  },
+  {
+    path: '/wxh5',
+    name: 'wxh5',
+    component: WXh5,
   },
 ]
 
