@@ -7,3 +7,10 @@
 **/*.sh
 
 /public/*
+
+.lock
+.eslintrc.js
+.husky/commit-msg
+.husky/pre-commit
+commitlint.config.js
+package.json
