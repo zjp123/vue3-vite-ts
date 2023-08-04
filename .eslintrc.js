@@ -5,9 +5,9 @@ module.exports = {
         browser: true
     },
     // plugins: ['prettier'],
+    // eslint 与vue 结合
     extends: [
         // 'plugin:vue/vue3-essential',
-        // '@vue/typescript/recommended',
         // '@vue/prettier',
         // '@vue/prettier/@typescript-eslint',
         'eslint:recommended',
