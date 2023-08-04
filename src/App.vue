@@ -6,30 +6,32 @@ import HeaderCom from './components/Header.vue'
 </script>
 
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-  <!-- <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
-  <HeaderCom />
-  <RouterView />
+    <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
+    <!-- <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
+    <HeaderCom />
+    <RouterView />
 </template>
 
 <style less>
-body{
-  margin: 0;
-  padding: 0;
-  *{
+body {
     margin: 0;
     padding: 0;
-  }
-  ul,li,ol{
-    list-style: none;
-  }
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    ul,
+    li,
+    ol {
+        list-style: none;
+    }
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  /* margin-top: 60px; */
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    /* margin-top: 60px; */
 }
 </style>

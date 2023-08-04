@@ -11,16 +11,29 @@ module.exports = {
         // '@vue/prettier',
         // '@vue/prettier/@typescript-eslint',
         'eslint:recommended',
-        'plugin:prettier/recommended'
+        'plugin:vue/vue3-essential',
+        'plugin:vue/vue3-strongly-recommended',
+        'plugin:vue/vue3-recommended',
+        'plugin:prettier/recommended',
+        'plugin:@typescript-eslint/recommended',
+
     ],
+    parser: "vue-eslint-parser",
     parserOptions: {
-        ecmaVersion: 2020
+        parser: '@typescript-eslint/parser',
+        ecmaVersion: 'latest',
+        sourceType: "module",
+        ecmaFeatures: {
+            "jsx": true
+        }
     },
     rules: {
+        "@typescript-eslint/no-unused-vars": "error",
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off'
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'vue/no-unused-vars': 'error'
     }
 }
