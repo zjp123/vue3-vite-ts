@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "outDir": "build/dist",
         "target": "esnext",
         "useDefineForClassFields": true,
         "module": "esnext",
@@ -20,6 +21,7 @@
         "src/**/*.tsx",
         "src/**/*.vue",
         "global.d.ts",
+        "typings.d.ts",
         "typings/**/*"
     ],
     "references": [{ "path": "./tsconfig.node.json" }]
