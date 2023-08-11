@@ -1,11 +1,23 @@
 <template lang="">
     <div>
         <el-button id="authBtn">登陆</el-button>
+        <p>{{ $globalVar }}</p>
+        <!-- <p>{{ aaa }}</p> -->
     </div>
 </template>
 <script lang="ts">
+// 使用相对路径： 直接使用相对路径来导入 aaa 模块，而不是使用模块路径。例如
+// import bbb from './node_modules/aaa/index.js';
+
+import { bbb } from 'aaa'
+console.log(bbb)
 export default {
     name: 'WeixinH5',
+    setup() {
+        return {
+            aaa: 88
+        }
+    },
     mounted: () => {
         window.onload = function () {
             // 假设需要获取用户信息授权的按钮 id 为 'authBtn'
