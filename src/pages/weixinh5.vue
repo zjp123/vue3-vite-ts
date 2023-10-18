@@ -4,29 +4,46 @@
     </div>
 </template>
 <script lang="ts">
+import API from '@/api/index'
+import util from '@/util'
 export default {
     name: 'WeixinH5',
-    mounted: () => {
-        window.onload = function () {
-            // 假设需要获取用户信息授权的按钮 id 为 'authBtn'
-            document.getElementById('authBtn')!.addEventListener('click', function () {
-                ;(window as any).wx.ready(function () {
-                    // 在这里进行用户授权的逻辑
-                    ;(window as any).wx.getUserInfo({
-                        success: function (res: any) {
-                            // 用户同意授权，可以在这里处理授权后的逻辑
-                            console.log('用户授权成功', res)
-                        },
-                        fail: function (res: any) {
-                            // 用户拒绝授权，可以在这里处理拒绝授权后的逻辑
-                            console.log('用户拒绝授权', res)
-                        }
-                    })
+    mounted() {
+        this.checkUserAuth()
+    },
+    methods: {
+        // 检查用户是否授权过
+        checkUserAuth() {
+            // 这个项目获取code是在后端获取的，然后后端获取完，又重定向到这个页面，同时设置了cookie,
+            // 在cookie中设置了openId
+            let openId = this.$cookies.get('openId')
+            if (!openId) {
+                window.location.href = API.wechatRedirect
+            } else {
+                this.getWechatConfig()
+            }
+        },
+        // 获取微信配置信息
+        getWechatConfig() {
+            this.$http
+                .get(API.wechatConfig + '?url=' + location.href.split('#')[0])
+                .then(function (response) {
+                    let res = response.data
+                    if (res.code == 0) {
+                        let data = res.data
+                        window.wx.config({
+                            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                            appId: data.appId, // 必填，公众号的唯一标识
+                            timestamp: data.timestamp, // 必填，生成签名的时间戳
+                            nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                            signature: data.signature, // 必填，签名
+                            jsApiList: data.jsApiList // 必填，需要使用的JS接口列表
+                        })
+                        window.wx.ready(() => {
+                            util.initShareInfo(window.wx)
+                        })
+                    }
                 })
-                ;(window as any).wx.error(function (res: any) {
-                    console.log('授权发生错误', res)
-                })
-            })
         }
     }
 }

@@ -14,9 +14,10 @@ declare module '*.tiff'
 
 interface Window {
     [propName: string]: any
-    wx: any
 }
 
 // declare module wx {}
 
 declare let ga: () => void
+
+// declare const wx: any
