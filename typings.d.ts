@@ -21,3 +21,5 @@ interface Window {
 declare let ga: () => void
 
 // declare const wx: any
+
+declare module 'js-cookie'
