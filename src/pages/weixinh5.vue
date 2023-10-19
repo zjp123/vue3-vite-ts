@@ -9,7 +9,7 @@ import util from '@/util'
 export default {
     name: 'WeixinH5',
     mounted() {
-        this.checkUserAuth()
+        // this.checkUserAuth()
     },
     methods: {
         // 检查用户是否授权过
@@ -48,4 +48,8 @@ export default {
     }
 }
 </script>
-<style lang=""></style>
+<style lang="less">
+#authBtn {
+    margin-top: 1rem;
+}
+</style>
