@@ -20,7 +20,13 @@ export default defineConfig({
             // options are passed on to @vue/babel-plugin-jsx
         }),
         AutoImport({
-            resolvers: [ElementPlusResolver()]
+            resolvers: [ElementPlusResolver()],
+            imports: ['vue', 'vue-router', 'vuex']
+            // eslintrc: {
+            //     enabled: false, // Default `false`
+            //     // filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+            //     globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
+            // }
         }),
         Components({
             resolvers: [ElementPlusResolver()]

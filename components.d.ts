@@ -5,13 +5,12 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-/** 由 app.component 全局注册的组件需要在这里声明 TS 类型才能获得 Volar 插件提供的类型提示） */
 declare module 'vue' {
     export interface GlobalComponents {
-        // ElButton: typeof import('element-plus/es')['ElButton']
-        // Header: typeof import('./src/components/Header.vue')['default']
-        // HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-        // RouterLink: typeof import('vue-router')['RouterLink']
-        // RouterView: typeof import('vue-router')['RouterView']
+        ElButton: (typeof import('element-plus/es'))['ElButton']
+        Header: (typeof import('./src/components/Header.vue'))['default']
+        HelloWorld: (typeof import('./src/components/HelloWorld.vue'))['default']
+        RouterLink: (typeof import('vue-router'))['RouterLink']
+        RouterView: (typeof import('vue-router'))['RouterView']
     }
 }

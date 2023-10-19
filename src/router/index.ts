@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ShallowReactiveCom from './pages/shallowReactive.vue'
-import WatcheffectCom from './pages/watcheffect.vue'
-import WXh5 from './pages/weixinh5.vue'
+import ShallowReactiveCom from '../pages/shallowReactive.vue'
+import WatcheffectCom from '../pages/watcheffect.vue'
+import WXh5 from '../pages/weixinh5.vue'
 
 const routes = [
     {
