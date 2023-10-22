@@ -9,6 +9,7 @@ import * as path from 'path'
 // import {name} from './package'
 // https://vitejs.dev/config/
 export default defineConfig({
+    envDir: './',
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src')
