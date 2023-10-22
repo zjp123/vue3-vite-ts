@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import API from '@/api/index'
-import util from '@/utils'
+import { wxUtil } from '@/utils'
 export default {
     name: 'WeixinH5',
     mounted() {
@@ -40,7 +40,7 @@ export default {
                         jsApiList: data.jsApiList // 必填，需要使用的JS接口列表
                     })
                     window.wx.ready(() => {
-                        util.initShareInfo(window.wx)
+                        wxUtil.initShareInfo(window.wx)
                     })
                 }
             })

@@ -1,9 +1,17 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { type RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
 import ShallowReactiveCom from '../pages/shallowReactive.vue'
 import WatcheffectCom from '../pages/watcheffect.vue'
 import WXh5 from '../pages/weixinh5.vue'
+import LoginCom from '../pages/login.vue'
+import NotFound from '../pages/404.vue'
+import HomeCom from '../pages/home.vue'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
+    {
+        path: '/',
+        name: 'Home',
+        component: HomeCom
+    },
     {
         path: '/shallowReactive',
         name: 'shallowReactive',
@@ -18,6 +26,16 @@ const routes = [
         path: '/wxh5',
         name: 'wxh5',
         component: WXh5
+    },
+    {
+        path: '/login',
+        name: 'LoginCom',
+        component: LoginCom
+    },
+    {
+        path: '/404',
+        name: 'NotFound',
+        component: NotFound
     }
 ]
 

@@ -49,4 +49,8 @@ module.exports = {
 
 4、接着在配置pretty husky lint-staged --这些配完才算配置基本完成
 
+5、env.d.ts 转给环境变量定义ts类型 auto-imports.d.ts  components.d.ts插件自动生成
+
+6、extendProperties.d.ts 给vue 运行时扩展自定义属性用的
+
 ```
