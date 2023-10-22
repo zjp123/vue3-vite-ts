@@ -5,6 +5,7 @@ import router from './router/index'
 import axios from 'axios'
 import cookies from 'vue-cookies'
 import VueAxios from 'vue-axios'
+import '@/router/permission'
 // import { ElButton } from 'element-plus'
 // import './public-path';
 
