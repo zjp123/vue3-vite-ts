@@ -25,24 +25,26 @@ router.beforeEach(async (to, _from, next) => {
 
     // 判断该用户是否已经登录
     if (!token) {
-        console.log(111)
         // 如果在免登录的白名单中，则直接进入
         // if (isWhiteList(to)) {
         //     next()
         // } else {
         // 其他没有访问权限的页面将被重定向到登录页面
-        NProgress.done()
-        next({ path: '/login', replace: true })
-        return
+        if (to.path !== '/login') {
+            NProgress.done()
+            next({ path: '/login', replace: true })
+            return
+        } else {
+            next() // 程序往下走
+            return
+        }
     }
 
     // 如果已经登录，并准备进入 Login 页面，则重定向到主页
-    if (to.path === '/login') {
-        console.log(222)
+    if (to.path === '/login' && token) {
         NProgress.done()
         return next({ path: '/' })
     }
-
     // 如果用户已经获得其权限角色
     // if (userStore.roles.length !== 0) return next()
 
