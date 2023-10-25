@@ -17,7 +17,7 @@ function logout() {
 function createService() {
     // 创建一个 axios 实例命名为 service
     const service = axios.create({
-        baseURL: process.env.BASE_API, // api的base_url
+        baseURL: import.meta.env.VITE_BASE_API, // api的base_url
         // baseURL: process.env.NODE_ENV === 'development' ? '' : process.env.BASE_API,
         timeout: 10000 // 请求超时时间,
         // withCredentials:true 跨域请求时 是否携带cookie等
@@ -155,26 +155,21 @@ function createRequest(service: AxiosInstance) {
                     })
             })
         },
-        // fetchPost(url: string, params = {}) {
-        //     return new Promise((resolve, reject) => {
-        //         service
-        //             .post(url, qs.stringify(params))
-        //             .then((res) => {
-        //                 if (objectIsValid(res)) {
-        //                     if (objectIsValid(res.message)) {
-        //                         resolve(res)
-        //                     } else {
-        //                         resolve(res.data)
-        //                     }
-        //                 } else {
-        //                     console.log('service.post 出错了')
-        //                 }
-        //             })
-        //             .catch((error) => {
-        //                 reject(error)
-        //             })
-        //     })
-        // },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        fetchPost(url: string, params = {}, baseUrl = 'BASE_API') {
+            return new Promise((resolve, reject) => {
+                service
+                    .post(url, {
+                        data: params
+                    })
+                    .then((res) => {
+                        resolve(res)
+                    })
+                    .catch((err) => {
+                        reject(err)
+                    })
+            })
+        },
         fetchPostFormBody(url: string, params = {}) {
             const config = {
                 headers: {

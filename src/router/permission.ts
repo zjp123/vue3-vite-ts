@@ -43,7 +43,7 @@ router.beforeEach(async (to, _from, next) => {
     // 如果已经登录，并准备进入 Login 页面，则重定向到主页
     if (to.path === '/login' && token) {
         NProgress.done()
-        return next({ path: '/' })
+        return next({ path: '/', replace: true })
     }
     // 如果用户已经获得其权限角色
     // if (userStore.roles.length !== 0) return next()
@@ -65,7 +65,30 @@ router.beforeEach(async (to, _from, next) => {
         // permissionStore.dynamicRoutes.forEach((route) => router.addRoute(route))
         // 确保添加路由已完成
         // 设置 replace: true, 因此导航将不会留下历史记录
-        next({ ...to, replace: true })
+        // console.log(999)
+
+        /*
+
+        // 用户已登录，检查是否已获取用户信息
+        const hasUserInfo = store.getters.hasUserInfo;
+
+        if (!hasUserInfo) {
+            try {
+                // 调用接口获取用户信息
+                const userInfo = await api.getUserInfo();
+                store.commit('setUserInfo', userInfo);
+            } catch (error) {
+                // 获取用户信息失败，可能是 token 过期等情况
+                console.error('Failed to get user information:', error);
+                // 可以跳转到登录页或者执行其他操作
+                next('/login');
+            }
+        }
+        */
+
+        // await userStore.getInfo()
+        next()
+        // next({ ...to, replace: true })
         return
     } catch (err: any) {
         // 过程中发生任何错误，都直接重置 Token，并重定向到登录页面
