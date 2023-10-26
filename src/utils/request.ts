@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance } from 'axios'
-import { useUserStoreHook } from '@/store/modules/user'
+import { useUserStoreWithOut } from '@/store/modules/user'
 import { ElMessage } from 'element-plus'
 import { get, merge } from 'lodash-es'
 import { getToken } from './cookies'
@@ -9,7 +9,7 @@ import { objectIsValid } from './index'
 
 /** 退出登录并强制刷新页面（会重定向到登录页） */
 function logout() {
-    useUserStoreHook().logout()
+    useUserStoreWithOut().logout()
     location.reload()
 }
 

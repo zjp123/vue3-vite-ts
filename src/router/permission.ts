@@ -1,6 +1,6 @@
 import router from '@/router'
-import { useUserStoreHook } from '@/store/modules/user'
-// import { usePermissionStoreHook } from '@/store/modules/permission'
+import { useUserStoreWithOut } from '@/store/modules/user'
+import { usePermissionStoreWithout } from '@/store/modules/permission'
 import { ElMessage } from 'element-plus'
 // import { setRouteChange } from '@/hooks/useRouteListener'
 import { useTitle } from '@/hooks/useTitle'
@@ -19,8 +19,8 @@ router.beforeEach(async (to, _from, next) => {
 
     // fixBlankPage()
     NProgress.start()
-    const userStore = useUserStoreHook()
-    // const permissionStore = usePermissionStoreHook()
+    const userStore = useUserStoreWithOut()
+    const permissionStore = usePermissionStoreWithout()
     const token = getToken()
 
     // 判断该用户是否已经登录
@@ -64,8 +64,6 @@ router.beforeEach(async (to, _from, next) => {
         // 将'有访问权限的动态路由' 添加到 Router 中
         // permissionStore.dynamicRoutes.forEach((route) => router.addRoute(route))
         // 确保添加路由已完成
-        // 设置 replace: true, 因此导航将不会留下历史记录
-        // console.log(999)
 
         /*
 
@@ -86,7 +84,10 @@ router.beforeEach(async (to, _from, next) => {
         }
         */
 
-        // await userStore.getInfo()
+        await userStore.getInfo()
+        permissionStore.setRoutes()
+        // permissionStore.dynamicRoutes.forEach((route) => router.addRoute(route))
+
         next()
         // next({ ...to, replace: true })
         return
