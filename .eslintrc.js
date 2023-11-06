@@ -35,6 +35,6 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         'vue/no-unused-vars': 'error',
-        // 'vue/multi-word-component-names': 'off'
+        'vue/multi-word-component-names': 'off'
     }
 }

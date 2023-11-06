@@ -30,9 +30,22 @@ router.beforeEach(async (to, _from, next) => {
         //     next()
         // } else {
         // 其他没有访问权限的页面将被重定向到登录页面
+        // }
+        const redirectData = {
+            path: to.path,
+            replace: false,
+            query: {}
+        }
+        if (to.path) {
+            redirectData.query = {
+                ...redirectData.query,
+                redirect: to.path
+            }
+        }
         if (to.path !== '/login') {
             NProgress.done()
-            next({ path: '/login', replace: true })
+            next(redirectData)
+            // next({ path: '/login', replace: true })
             return
         } else {
             next() // 程序往下走

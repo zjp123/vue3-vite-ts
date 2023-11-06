@@ -145,7 +145,7 @@ function createRequest(service: AxiosInstance) {
                     })
                     .then((res) => {
                         if (objectIsValid(res)) {
-                            resolve(res)
+                            resolve(res.data)
                         } else {
                             console.log('service.get 出错了')
                         }
@@ -155,20 +155,30 @@ function createRequest(service: AxiosInstance) {
                     })
             })
         },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        fetchPost(url: string, params = {}, baseUrl = 'BASE_API') {
-            return new Promise((resolve, reject) => {
-                service
-                    .post(url, {
-                        data: params
-                    })
-                    .then((res) => {
-                        resolve(res)
-                    })
-                    .catch((err) => {
-                        reject(err)
-                    })
-            })
+        fetchPost<T = any>(
+            url: string,
+            params: Record<string, any> = {},
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            baseUrl: string = 'BASE_API',
+            data: any
+        ): Promise<T> {
+            if (url) {
+                return new Promise((resolve, reject) => {
+                    service
+                        .post(url, {
+                            data: params
+                        })
+                        .then((res) => {
+                            resolve(res as T)
+                        })
+                        .catch((err) => {
+                            reject(err)
+                        })
+                })
+            } else {
+                console.log(data, 'data')
+                return data
+            }
         },
         fetchPostFormBody(url: string, params = {}) {
             const config = {
