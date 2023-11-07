@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 // import { useTagsViewStore } from './tags-view'
 // import { useSettingsStore } from './settings'
 import { getToken, removeToken, setToken } from '@/utils/cookies'
-import { resetRouter } from '@/router/index'
+import router, { resetRouter } from '@/router/index'
 import { loginApi, getUserInfoApi } from '@/api/login'
 // import { usePermissionStore } from './permission'
 // import { type LoginRequestData } from '@/api/login/types/login'
@@ -52,7 +52,7 @@ export const useUserStore = defineStore('user', () => {
     }
 
     /** 获取用户详情 */
-    const getInfo = async (param: any) => {
+    const getUserInfoAction = async (param: any) => {
         const { data } = await getUserInfoApi(param)
         username.value = data.username
         // 验证返回的 roles 是否为一个非空数组，否则塞入一个没有任何作用的默认角色，防止路由守卫逻辑进入无限循环
@@ -71,17 +71,10 @@ export const useUserStore = defineStore('user', () => {
         // })
         return data
     }
-
-    // const getParamFn = () => {
-    //     const params = new URLSearchParams(window.href.split('?')[1])
-    //     const redirectValue = params.get('redirect')
-    //     return redirectValue
-    // }
-
     async function afterLoginAction(): Promise<UserInfo | null> {
         if (!token.value) return null
         // get user info
-        const userInfo: UserInfo = await getInfo({ token: token.value })
+        const userInfo: UserInfo = await getUserInfoAction({ token: token.value })
         // const permissionStore = usePermissionStore()
         // if (!permissionStore.isDynamicAddedRoute) {
         //     const routes = await permissionStore.buildRoutesAction()
@@ -91,7 +84,15 @@ export const useUserStore = defineStore('user', () => {
         //     router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw)
         //     permissionStore.setDynamicAddedRoute(true)
         // }
-        // await router.replace('/')
+        const params = new URLSearchParams(window.location.href.split('?')[1])
+        let redirectValue = params.get('redirect')
+
+        // 获取redirect字段的值
+        console.log(redirectValue, 'afterLoginAction11')
+        if (redirectValue) {
+            redirectValue = decodeURIComponent(redirectValue)
+        }
+        await router.replace(redirectValue || '/')
         return userInfo
     }
     // async function getUserInfoAction(): Promise<UserInfo | null> {
@@ -113,7 +114,7 @@ export const useUserStore = defineStore('user', () => {
         const newToken = 'token-' + role
         token.value = newToken
         setToken(newToken)
-        await getInfo(role)
+        await getUserInfoAction(role)
         // permissionStore.setRoutes(roles.value)
         resetRouter()
         // permissionStore.dynamicRoutes.forEach((item: RouteRecordRaw) => {
@@ -163,7 +164,7 @@ export const useUserStore = defineStore('user', () => {
         login,
         username,
         setRoles,
-        getInfo,
+        getUserInfoAction,
         changeRoles,
         afterLoginAction,
         logout,
