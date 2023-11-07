@@ -31,21 +31,9 @@ router.beforeEach(async (to, _from, next) => {
         // } else {
         // 其他没有访问权限的页面将被重定向到登录页面
         // }
-        const redirectData = {
-            path: to.path,
-            replace: false,
-            query: {}
-        }
-        if (to.path) {
-            redirectData.query = {
-                ...redirectData.query,
-                redirect: to.path
-            }
-        }
         if (to.path !== '/login') {
             NProgress.done()
-            next(redirectData)
-            // next({ path: '/login', replace: true })
+            next({ path: '/login', replace: true })
             return
         } else {
             next() // 程序往下走
@@ -97,7 +85,7 @@ router.beforeEach(async (to, _from, next) => {
         }
         */
 
-        await userStore.getInfo()
+        await userStore.getInfo({ token: token })
         permissionStore.setRoutes()
         // permissionStore.dynamicRoutes.forEach((route) => router.addRoute(route))
 
