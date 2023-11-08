@@ -6,7 +6,7 @@ import LoginCom from '../pages/login.vue'
 import NotFound from '../pages/404.vue'
 import HomeCom from '../pages/home.vue'
 
-const routes: RouteRecordRaw[] = [
+export const routes: RouteRecordRaw[] = [
     {
         path: '/',
         name: 'Home',
@@ -38,6 +38,20 @@ const routes: RouteRecordRaw[] = [
         component: NotFound
     }
 ]
+
+// import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
+// const modules = import.meta.globEager('./modules/**/*.ts')
+const modules: any = import.meta.glob('./modules/**/*.ts', { eager: true })
+const routeModuleList: any[] = []
+
+// 加入到路由集合中
+Object.keys(modules).forEach((key) => {
+    const mod = modules[key].default || {}
+    const modList = Array.isArray(mod) ? [...mod] : [mod]
+    routeModuleList.push(...modList)
+})
+
+export const asyncRoutes = [...routeModuleList]
 
 const router = createRouter({
     history: createWebHistory(),
