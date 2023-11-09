@@ -5,6 +5,7 @@ import WXh5 from '../pages/weixinh5.vue'
 import LoginCom from '../pages/login.vue'
 import NotFound from '../pages/404.vue'
 import HomeCom from '../pages/home.vue'
+import LAYOUT from '@/components/layout/index.vue'
 
 export const routes: RouteRecordRaw[] = [
     {
@@ -72,6 +73,29 @@ export function resetRouter() {
         // 强制刷新浏览器也行，只是交互体验不是很好
         window.location.reload()
     }
+}
+
+export const PAGE_NOT_FOUND_ROUTE: any = {
+    path: '/:path(.*)*',
+    name: 'PageNotFound',
+    component: LAYOUT,
+    meta: {
+        title: 'ErrorPage',
+        hideBreadcrumb: true,
+        hideMenu: true
+    },
+    children: [
+        {
+            path: '/:path(.*)*',
+            name: 'PageNotFound',
+            component: () => import('@/pages/exception/Exception.vue'),
+            meta: {
+                title: 'ErrorPage',
+                hideBreadcrumb: true,
+                hideMenu: true
+            }
+        }
+    ]
 }
 
 export default router

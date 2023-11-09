@@ -1,8 +1,11 @@
 import { ref } from 'vue'
 import store from '@/store'
 import { defineStore } from 'pinia'
-import { type RouteRecordRaw } from 'vue-router'
-import router from '@/router/index'
+import { PAGE_NOT_FOUND_ROUTE } from '@/router/index'
+// import { useUserStore } from './user'
+import { RouteRecordRaw } from 'vue-router'
+import { getMenuListApi } from '@/api/login'
+import { flatMultiLevelRoutes, transformObjToRoute, transformRouteToMenu } from '@/router/utils'
 // // import { flatMultiLevelRoutes } from '@/router/helper'
 // // import routeSettings from '@/config/route'
 // const routeSettings = {
@@ -38,23 +41,38 @@ import router from '@/router/index'
 //     return res
 // }
 
-export const usePermissionStore = defineStore('permission', () => {
-    const routes = ref<RouteRecordRaw[]>([])
-    const dynamicRoutes = ref<RouteRecordRaw[]>([])
+// declare type Recordable<T = any> = Record<string, T>
+// export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
+//     name: string
+//     meta: RouteMeta
+//     component?: Component | string
+//     components?: Component
+//     children?: AppRouteRecordRaw[]
+//     props?: Recordable
+//     fullPath?: string
+// }
 
-    const setRoutes = () => {
-        // const accessedRoutes = routeSettings.async
-        //     ? filterAsyncRoutes(asyncRoutes, roles)
-        //     : asyncRoutes
-        // routes.value = constantRoutes.concat(accessedRoutes)
-        // dynamicRoutes.value = routeSettings.thirdLevelRouteCache
-        //     ? flatMultiLevelRoutes(accessedRoutes)
-        //     : accessedRoutes
-        routes.value = router.getRoutes()
-        dynamicRoutes.value = []
+export const usePermissionStore = defineStore('permission', () => {
+    const menuList = ref<RouteRecordRaw[]>([]) // 所有菜单
+    // const dynamicRoutes = ref<RouteRecordRaw[]>([])
+    // 构建路由
+    async function buildRoutesAction(): Promise<any[]> {
+        // const { t } = useI18n()
+        // const userStore = useUserStore()
+        // const appStore = useAppStoreWithOut()
+        let routes: any[] = []
+        let routeList = await getMenuListApi()
+        routeList = transformObjToRoute(routeList)
+        //  后台路由到菜单结构
+        const backMenuList = transformRouteToMenu(routeList)
+        menuList.value = backMenuList
+
+        routeList = flatMultiLevelRoutes(routeList)
+        routes = [PAGE_NOT_FOUND_ROUTE, ...routeList]
+        return routes
     }
 
-    return { routes, dynamicRoutes, setRoutes }
+    return { menuList, buildRoutesAction }
 })
 
 /** 在 setup 外使用 */
