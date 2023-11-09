@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue'
 import store from '@/store'
 import { defineStore } from 'pinia'
-// import { usePermissionStore } from './permission'
+import { usePermissionStore } from './permission'
 // import { useTagsViewStore } from './tags-view'
 // import { useSettingsStore } from './settings'
 import { getToken, removeToken, setToken } from '@/utils/cookies'
@@ -26,7 +26,7 @@ interface UserInfo {
 export const useUserStore = defineStore('user', () => {
     const token = ref<string>(getToken() || '')
     const roleList = ref<string[]>([]) // 暂时没有角色功能 预留着
-    const username = ref<string>('')
+    const userName = ref<string>('')
     const userId = ref<string>('')
 
     const userInfo: UserInfo = reactive({
@@ -35,7 +35,7 @@ export const useUserStore = defineStore('user', () => {
         userId: ''
     })
 
-    // const permissionStore = usePermissionStore()
+    const permissionStore = usePermissionStore()
     // const tagsViewStore = useTagsViewStore()
     // const settingsStore = useSettingsStore()
 
@@ -45,20 +45,24 @@ export const useUserStore = defineStore('user', () => {
     }
     /** 登录 */
     const login = async ({ username, password, code }: any) => {
-        const { data } = await loginApi({ username, password, code })
-        console.log(data, 'token')
-        setToken(data.token)
-        token.value = data.token
+        const { token: tokenNew } = await loginApi({ username, password, code })
+        console.log(tokenNew, 'token')
+        setToken(tokenNew)
+        token.value = tokenNew
         return afterLoginAction()
     }
 
     /** 获取用户详情 */
     const getUserInfoAction = async (param: any) => {
-        const { data } = await getUserInfoApi(param)
-        username.value = data.username
+        const {
+            userName: userNameNew,
+            roleList: roleListNew,
+            userId: userIdNew
+        } = await getUserInfoApi(param)
+        userName.value = userNameNew
         // 验证返回的 roleList 是否为一个非空数组，否则塞入一个没有任何作用的默认角色，防止路由守卫逻辑进入无限循环
-        roleList.value = data.roleList?.length > 0 ? data.roleList : ['admin']
-        userId.value = data.userId
+        roleList.value = roleListNew?.length > 0 ? roleListNew : ['admin']
+        userId.value = userIdNew
         // return new Promise((resolve, reject) => {
         //     try {
         //         setTimeout(() => {
@@ -71,7 +75,7 @@ export const useUserStore = defineStore('user', () => {
         //         reject(error)
         //     }
         // })
-        return data
+        return { userName: userNameNew, roleList: roleListNew, userId: userIdNew }
     }
     async function afterLoginAction(): Promise<UserInfo | null> {
         if (!token.value) return null
@@ -86,11 +90,15 @@ export const useUserStore = defineStore('user', () => {
         //     router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw)
         //     permissionStore.setDynamicAddedRoute(true)
         // }
+        const routes = await permissionStore.buildRoutesAction()
+        routes.forEach((route: any) => {
+            router.addRoute(route)
+        })
         const params = new URLSearchParams(window.location.href.split('?')[1])
         let redirectValue = params.get('redirect')
 
         // 获取redirect字段的值
-        console.log(redirectValue, 'afterLoginAction11')
+        console.log(routes, redirectValue, 'afterLoginAction11')
         if (redirectValue) {
             redirectValue = decodeURIComponent(redirectValue)
         }
@@ -164,7 +172,7 @@ export const useUserStore = defineStore('user', () => {
         token,
         roleList,
         login,
-        username,
+        userName,
         setRoles,
         getUserInfoAction,
         changeRoles,

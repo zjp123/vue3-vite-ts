@@ -61,7 +61,8 @@ export const usePermissionStore = defineStore('permission', () => {
         // const userStore = useUserStore()
         // const appStore = useAppStoreWithOut()
         let routes: any[] = []
-        let routeList = await getMenuListApi()
+        let { menuList: routeList } = await getMenuListApi()
+        console.log(routeList, 'getMenuListApi')
         routeList = transformObjToRoute(routeList)
         //  后台路由到菜单结构
         const backMenuList = transformRouteToMenu(routeList)

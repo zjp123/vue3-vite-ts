@@ -35,7 +35,7 @@ router.beforeEach(async (to, _from, next) => {
             NProgress.done()
             // redirect login page 这段代码是拼接  redirect 登陆后重回到这个页面
             let query = {}
-            if (to.path) {
+            if (to.path !== '/') {
                 query = {
                     redirect: to.path
                 }

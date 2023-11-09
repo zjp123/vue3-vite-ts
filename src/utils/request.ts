@@ -46,6 +46,7 @@ function createService() {
     service.interceptors.response.use(
         (response) => {
             const responseData = response.data
+            console.log(responseData, 'responseData')
             if (responseData.code === 200) {
                 return responseData
             } else if (responseData.code === 401) {
@@ -176,8 +177,8 @@ function createRequest(service: AxiosInstance) {
                         })
                 })
             } else {
-                console.log(data, 'data')
-                return data
+                console.log(data, 'data111')
+                return data.data
             }
         },
         fetchPostFormBody(url: string, params = {}) {

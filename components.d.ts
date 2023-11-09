@@ -8,8 +8,10 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         ElButton: (typeof import('element-plus/es'))['ElButton']
-        Header: (typeof import('./src/components/Header.vue'))['default']
+        ElRow: (typeof import('element-plus/es'))['ElRow']
+        Header: (typeof import('./src/components/layout/Header.vue'))['default']
         HelloWorld: (typeof import('./src/components/HelloWorld.vue'))['default']
+        Layout: (typeof import('./src/components/layout/index.vue'))['default']
         RouterLink: (typeof import('vue-router'))['RouterLink']
         RouterView: (typeof import('vue-router'))['RouterView']
     }
