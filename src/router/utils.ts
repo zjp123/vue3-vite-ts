@@ -46,7 +46,7 @@ export function transformObjToRoute(routeList: any[]) {
 
 // Dynamic introduction
 function asyncImportRoute(routes: any) {
-    dynamicViewsModules = dynamicViewsModules || import.meta.glob('../../views/**/*.{vue,tsx}')
+    dynamicViewsModules = dynamicViewsModules || import.meta.glob('../pages/**/*.{vue,tsx}')
     if (!routes) return
     routes.forEach((item: any) => {
         if (!item.component && item.meta?.frameSrc) {
@@ -71,7 +71,7 @@ function asyncImportRoute(routes: any) {
 function dynamicImport(dynamicViewsModules: Record<string, () => Promise<any>>, component: string) {
     const keys = Object.keys(dynamicViewsModules)
     const matchKeys = keys.filter((key) => {
-        const k = key.replace('../../views', '')
+        const k = key.replace('../pages', '')
         const startFlag = component.startsWith('/')
         const endFlag = component.endsWith('.vue') || component.endsWith('.tsx')
         const startIndex = startFlag ? 0 : 1
@@ -88,7 +88,7 @@ function dynamicImport(dynamicViewsModules: Record<string, () => Promise<any>>, 
         return
     } else {
         console.warn(
-            '在src/views/下找不到`' + component + '.vue` 或 `' + component + '.tsx`, 请自行创建!'
+            '在src/pages/下找不到`' + component + '.vue` 或 `' + component + '.tsx`, 请自行创建!'
         )
         return EXCEPTION_COMPONENT
     }

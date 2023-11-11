@@ -1,6 +1,6 @@
 import router from '@/router'
 import { useUserStoreWithOut } from '@/store/modules/user'
-// import { usePermissionStoreWithout } from '@/store/modules/permission'
+import { usePermissionStoreWithout } from '@/store/modules/permission'
 import { ElMessage } from 'element-plus'
 // import { setRouteChange } from '@/hooks/useRouteListener'
 import { useTitle } from '@/hooks/useTitle'
@@ -20,7 +20,7 @@ router.beforeEach(async (to, _from, next) => {
     // fixBlankPage()
     NProgress.start()
     const userStore = useUserStoreWithOut()
-    // const permissionStore = usePermissionStoreWithout()
+    const permissionStore = usePermissionStoreWithout()
     const token = getToken()
 
     // 判断该用户是否已经登录
@@ -55,8 +55,29 @@ router.beforeEach(async (to, _from, next) => {
     }
     // 如果用户已经获得其权限角色--有了token 就一定有用户信息
     try {
-        next()
-        return
+        const routes = await permissionStore.buildRoutesAction()
+        routes.forEach((route: any) => {
+            router.addRoute(route)
+        })
+        console.log(_from, to, routes, '哈哈哈哈哈哈啊啊啊啊啊啊啊啊啊啊啊')
+
+        if (!to.name) {
+            // 动态添加路由后，此处应当重定向到fullPath，否则会加载404页面内容
+            next({ path: to.fullPath, replace: true, query: to.query })
+            return
+        } else {
+            // console.log(999)
+            // if (_from.path === to.path) return
+            // const redirectPath = (_from.query.redirect || to.path) as string
+            // const redirect = decodeURIComponent(redirectPath)
+            // const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
+            // next(nextData)
+            // return
+            next()
+            return
+        }
+        // next()
+        // return
     } catch (err: any) {
         // 过程中发生任何错误，都直接重置 Token，并重定向到登录页面
         userStore.resetToken()

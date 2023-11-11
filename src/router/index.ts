@@ -7,7 +7,7 @@ import NotFound from '../pages/404.vue'
 import HomeCom from '../pages/home.vue'
 import LAYOUT from '@/components/layout/index.vue'
 
-export const routes: RouteRecordRaw[] = [
+export const baseRoutes: RouteRecordRaw[] = [
     {
         path: '/',
         name: 'Home',
@@ -56,7 +56,7 @@ export const asyncRoutes = [...routeModuleList]
 
 const router = createRouter({
     history: createWebHistory(),
-    routes: routes
+    routes: baseRoutes
 })
 
 /** 重置路由 */

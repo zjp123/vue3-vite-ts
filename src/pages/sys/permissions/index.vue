@@ -1,11 +1,11 @@
 <template lang="">
     <div>
-        <el-button>首页首页</el-button>
+        <el-button>权限管理</el-button>
     </div>
 </template>
 <script lang="ts">
 export default {
-    name: 'HomeCom'
+    name: 'Permission'
 }
 </script>
 <style lang="less"></style>

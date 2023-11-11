@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import store from '@/store'
 import { defineStore } from 'pinia'
-import { PAGE_NOT_FOUND_ROUTE } from '@/router/index'
+import { PAGE_NOT_FOUND_ROUTE, baseRoutes } from '@/router/index'
 // import { useUserStore } from './user'
 import { RouteRecordRaw } from 'vue-router'
 import { getMenuListApi } from '@/api/login'
@@ -69,7 +69,7 @@ export const usePermissionStore = defineStore('permission', () => {
         menuList.value = backMenuList
 
         routeList = flatMultiLevelRoutes(routeList)
-        routes = [PAGE_NOT_FOUND_ROUTE, ...routeList]
+        routes = [...baseRoutes, PAGE_NOT_FOUND_ROUTE, ...routeList]
         return routes
     }
 
