@@ -22,7 +22,11 @@ export default defineConfig({
         }),
         AutoImport({
             resolvers: [ElementPlusResolver()],
-            imports: ['vue', 'vue-router', 'vuex']
+            imports: ['vue', 'vue-router', 'vuex'],
+            // 增加 eslintrc，自动生成 .eslintrc-auto-import.json 文件
+            eslintrc: {
+                enabled: true
+            }
             // eslintrc: {
             //     enabled: false, // Default `false`
             //     // filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`

@@ -53,4 +53,7 @@ module.exports = {
 
 6、extendProperties.d.ts 给vue 运行时扩展自定义属性用的
 
+按需导入后引用ElMessage组件报错或者样式丢失
+7、https://blog.csdn.net/qq_39111074/article/details/132907645?spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-4-132907645-blog-134049912.235%5Ev38%5Epc_relevant_anti_vip&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-4-132907645-blog-134049912.235%5Ev38%5Epc_relevant_anti_vip&utm_relevant_index=5
+
 ```

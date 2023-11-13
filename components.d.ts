@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         ElButton: (typeof import('element-plus/es'))['ElButton']
+        ElConfigProvider: (typeof import('element-plus/es'))['ElConfigProvider']
+        ElMessage: (typeof import('element-plus/es'))['ElMessage']
         ElRow: (typeof import('element-plus/es'))['ElRow']
         Header: (typeof import('./src/components/layout/Header.vue'))['default']
         HelloWorld: (typeof import('./src/components/HelloWorld.vue'))['default']

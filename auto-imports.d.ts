@@ -6,6 +6,8 @@
 export {}
 declare global {
     const EffectScope: (typeof import('vue'))['EffectScope']
+    const ElConfigProvider: (typeof import('element-plus/es'))['ElConfigProvider']
+    const ElMessage: (typeof import('element-plus/es'))['ElMessage']
     const computed: (typeof import('vue'))['computed']
     const createApp: (typeof import('vue'))['createApp']
     const createLogger: (typeof import('vuex'))['createLogger']

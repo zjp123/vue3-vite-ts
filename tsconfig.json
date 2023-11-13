@@ -26,7 +26,8 @@
         "src/**/*.vue",
         "global.d.ts",
         "typings.d.ts",
-        "typings/**/*"
+        "typings/**/*",
+        "./auto-imports.d.ts"
     ],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
