@@ -9,11 +9,12 @@ export default {
 </script>
 <style scoped lang="less">
 #headerBox {
-    height: 0.4rem;
-    line-height: 0.44rem;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
     background-color: rgba(28, 149, 77, 0.861);
     color: @blue;
     user-select: none;
-    font-size: 0.18rem;
+    font-size: 18px;
 }
 </style>

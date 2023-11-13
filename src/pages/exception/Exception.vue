@@ -150,18 +150,18 @@ export default defineComponent({
 })
 </script>
 <style lang="less">
-@prefix-cls: ~'@{namespace}-app-exception-page';
+// @prefix-cls: ~'@{namespace}-app-exception-page';
 
-.@{prefix-cls} {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+// .@{prefix-cls} {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
 
-    .ant-result-icon {
-        img {
-            max-width: 400px;
-            max-height: 300px;
-        }
-    }
-}
+//     .ant-result-icon {
+//         img {
+//             max-width: 400px;
+//             max-height: 300px;
+//         }
+//     }
+// }
 </style>
