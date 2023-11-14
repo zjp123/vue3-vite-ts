@@ -1,4 +1,4 @@
-import router from '@/router'
+import router, { PAGE_NOT_FOUND_ROUTE } from '@/router'
 import { useUserStoreWithOut } from '@/store/modules/user'
 import { usePermissionStoreWithout } from '@/store/modules/permission'
 import { ElMessage } from 'element-plus'
@@ -15,8 +15,6 @@ const { setTitle } = useTitle()
 NProgress.configure({ showSpinner: false })
 
 router.beforeEach(async (to, _from, next) => {
-    console.log(888)
-
     // fixBlankPage()
     NProgress.start()
     const userStore = useUserStoreWithOut()
@@ -53,17 +51,28 @@ router.beforeEach(async (to, _from, next) => {
         NProgress.done()
         return next({ path: '/', replace: true })
     }
+
+    if (permissionStore.isDynamicAddedRoute) {
+        console.log(to, 999)
+        next()
+        return
+    }
+
     // 如果用户已经获得其权限角色--有了token 就一定有用户信息
     try {
         const routes = await permissionStore.buildRoutesAction()
         routes.forEach((route: any) => {
             router.addRoute(route)
         })
-        console.log(_from, to, routes, '哈哈哈哈哈哈啊啊啊啊啊啊啊啊啊啊啊')
+        console.log(_from, to.fullPath, '哈哈哈哈哈哈啊啊啊啊啊啊啊啊啊啊啊')
+        router.addRoute(PAGE_NOT_FOUND_ROUTE)
+        permissionStore.setDynamicAddedRoute(true)
 
-        if (!to.name) {
+        if (to.name === 'PageNotFound') {
+            console.log(888)
             // 动态添加路由后，此处应当重定向到fullPath，否则会加载404页面内容
             next({ path: to.fullPath, replace: true, query: to.query })
+            // next()
             return
         } else {
             // console.log(999)

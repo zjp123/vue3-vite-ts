@@ -54,6 +54,7 @@ import { flatMultiLevelRoutes, transformObjToRoute, transformRouteToMenu } from 
 
 export const usePermissionStore = defineStore('permission', () => {
     const menuList = ref<RouteRecordRaw[]>([]) // 所有菜单
+    const isDynamicAddedRoute = ref(false)
     // const dynamicRoutes = ref<RouteRecordRaw[]>([])
     // 构建路由
     async function buildRoutesAction(): Promise<any[]> {
@@ -73,7 +74,11 @@ export const usePermissionStore = defineStore('permission', () => {
         return routes
     }
 
-    return { menuList, buildRoutesAction }
+    const setDynamicAddedRoute = (value: boolean) => {
+        isDynamicAddedRoute.value = value
+    }
+
+    return { menuList, buildRoutesAction, setDynamicAddedRoute, isDynamicAddedRoute }
 })
 
 /** 在 setup 外使用 */

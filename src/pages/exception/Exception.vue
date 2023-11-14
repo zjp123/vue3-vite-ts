@@ -1,11 +1,11 @@
 <script lang="tsx">
 import type { PropType } from 'vue'
-import { ElResult, ElButton } from 'element-plus'
-import { defineComponent, ref, computed, unref } from 'vue'
+// import { ElResult, ElButton } from 'element-plus'
+import { defineComponent, ref, unref } from 'vue'
 // import { ExceptionEnum } from '/@/enums/exceptionEnum'
 // import notDataSvg from '/@/assets/svg/no-data.svg'
 // import netWorkSvg from '/@/assets/svg/net-error.svg'
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
 // import { useDesign } from '/@/hooks/web/useDesign'
 // import { useGo, useRedo } from '/@/hooks/web/usePage'
 
@@ -65,21 +65,21 @@ export default defineComponent({
     setup(props) {
         const statusMapRef = ref(new Map<string | number, MapValue>())
 
-        const { query } = useRoute()
+        // const { query } = useRoute()
         const go = useGo()
         const redo = useRedo()
         // const { t } = useI18n()
         // const { prefixCls } = useDesign('app-exception-page')
 
-        const getStatus: any = computed(() => {
-            const { status: routeStatus } = query
-            const { status } = props
-            return Number(routeStatus) || status
-        })
+        // const getStatus: any = computed(() => {
+        //     const { status: routeStatus } = query
+        //     const { status } = props
+        //     return Number(routeStatus) || status
+        // })
 
-        const getMapValue = computed((): MapValue => {
-            return unref(statusMapRef).get(unref(getStatus)) as MapValue
-        })
+        // const getMapValue = computed((): MapValue => {
+        //     return unref(statusMapRef).get(unref(getStatus)) as MapValue
+        // })
 
         const backLoginI18n = '11'
         const backHomeI18n = '22'
@@ -127,24 +127,8 @@ export default defineComponent({
         })
 
         return () => {
-            const { title, subTitle, btnText, icon, handler } = unref(getMapValue) || {}
-            return (
-                <ElResult
-                    class={'app-exception-page'}
-                    title={props.title || title}
-                    sub-title={props.subTitle || subTitle}
-                >
-                    {{
-                        extra: () =>
-                            btnText && (
-                                <ElButton type="primary" onClick={handler}>
-                                    {() => btnText}
-                                </ElButton>
-                            ),
-                        icon: () => (icon ? <img src={icon} /> : null)
-                    }}
-                </ElResult>
-            )
+            // const { title, subTitle, btnText, icon, handler } = unref(getMapValue) || {}
+            return <h1>404</h1>
         }
     }
 })

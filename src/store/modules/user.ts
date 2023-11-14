@@ -5,7 +5,7 @@ import { usePermissionStore } from './permission'
 // import { useTagsViewStore } from './tags-view'
 // import { useSettingsStore } from './settings'
 import { getToken, removeToken, setToken } from '@/utils/cookies'
-import router, { resetRouter } from '@/router/index'
+import router, { PAGE_NOT_FOUND_ROUTE, resetRouter } from '@/router/index'
 import { loginApi, getUserInfoApi } from '@/api/login'
 // import { usePermissionStore } from './permission'
 // import { type LoginRequestData } from '@/api/login/types/login'
@@ -94,6 +94,9 @@ export const useUserStore = defineStore('user', () => {
         routes.forEach((route: any) => {
             router.addRoute(route)
         })
+        router.addRoute(PAGE_NOT_FOUND_ROUTE)
+        permissionStore.setDynamicAddedRoute(true)
+
         const params = new URLSearchParams(window.location.href.split('?')[1])
         let redirectValue = params.get('redirect')
 
