@@ -1,4 +1,4 @@
-import router, { PAGE_NOT_FOUND_ROUTE } from '@/router'
+import router from '@/router'
 import { useUserStoreWithOut } from '@/store/modules/user'
 import { usePermissionStoreWithout } from '@/store/modules/permission'
 import { ElMessage } from 'element-plus'
@@ -46,6 +46,17 @@ router.beforeEach(async (to, _from, next) => {
         }
     }
 
+    // get userinfo while last fetch time is empty
+    // 手动刷新时 有token 没有userid
+    if (!userStore.userId) {
+        try {
+            await userStore.getUserInfoAction({ token })
+        } catch (err) {
+            next()
+            return
+        }
+    }
+
     // 如果已经登录，并准备进入 Login 页面，则重定向到主页
     if (to.path === '/login' && token) {
         NProgress.done()
@@ -60,16 +71,16 @@ router.beforeEach(async (to, _from, next) => {
 
     // 如果用户已经获得其权限角色--有了token 就一定有用户信息
     try {
+        // 下面这段代码看似没用，但本地开发时，热更新就会找不到对应的路由，因为有的路由是动态的，调的接口
         const routes = await permissionStore.buildRoutesAction()
         routes.forEach((route: any) => {
             router.addRoute(route)
         })
-        console.log(_from, to.fullPath, '哈哈哈哈哈哈啊啊啊啊啊啊啊啊啊啊啊')
-        router.addRoute(PAGE_NOT_FOUND_ROUTE)
+        console.log(_from, to.fullPath, routes, '哈哈哈哈哈哈啊啊啊啊啊啊啊啊啊啊啊')
         permissionStore.setDynamicAddedRoute(true)
 
         if (to.name === 'PageNotFound') {
-            console.log(888)
+            console.log(to, 888)
             // 动态添加路由后，此处应当重定向到fullPath，否则会加载404页面内容
             next({ path: to.fullPath, replace: true, query: to.query })
             // next()

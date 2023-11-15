@@ -71,6 +71,37 @@ export const usePermissionStore = defineStore('permission', () => {
 
         routeList = flatMultiLevelRoutes(routeList)
         routes = [...baseRoutes, PAGE_NOT_FOUND_ROUTE, ...routeList]
+        /**
+         * @description 根据设置的首页path，修正routes中的affix标记（固定首页）
+         * */
+        // const patchHomeAffix = (routes: any[]) => {
+        //     if (!routes || routes.length === 0) return
+        //     let homePath: string = '/'
+        //     function patcher(routes: any[], parentPath = '') {
+        //         if (parentPath) parentPath = parentPath + '/'
+        //         routes.forEach((route: any) => {
+        //             const { path, children, redirect } = route
+        //             const currentPath = path.startsWith('/') ? path : parentPath + path
+        //             if (currentPath === homePath) {
+        //                 if (redirect) {
+        //                     homePath = route.redirect! as string
+        //                 } else {
+        //                     route.meta = Object.assign({}, route.meta, { affix: true })
+        //                     throw new Error('end')
+        //                 }
+        //             }
+        //             children && children.length > 0 && patcher(children, currentPath)
+        //         })
+        //     }
+
+        //     try {
+        //         patcher(routes)
+        //     } catch (e) {
+        //         // 已处理完毕跳出循环
+        //     }
+        //     return
+        // }
+        // patchHomeAffix(routes)
         return routes
     }
 

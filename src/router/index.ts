@@ -40,41 +40,6 @@ export const baseRoutes: RouteRecordRaw[] = [
     }
 ]
 
-// import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
-// const modules = import.meta.globEager('./modules/**/*.ts')
-const modules: any = import.meta.glob('./modules/**/*.ts', { eager: true })
-const routeModuleList: any[] = []
-
-// 加入到路由集合中
-Object.keys(modules).forEach((key) => {
-    const mod = modules[key].default || {}
-    const modList = Array.isArray(mod) ? [...mod] : [mod]
-    routeModuleList.push(...modList)
-})
-
-export const asyncRoutes = [...routeModuleList]
-
-const router = createRouter({
-    history: createWebHistory(),
-    routes: baseRoutes
-})
-
-/** 重置路由 */
-export function resetRouter() {
-    // 注意：所有动态路由路由必须带有 Name 属性，否则可能会不能完全重置干净
-    try {
-        router.getRoutes().forEach((route) => {
-            const { name, meta } = route
-            if (name && meta.roles?.length) {
-                router.hasRoute(name) && router.removeRoute(name)
-            }
-        })
-    } catch {
-        // 强制刷新浏览器也行，只是交互体验不是很好
-        window.location.reload()
-    }
-}
-
 export const PAGE_NOT_FOUND_ROUTE: any = {
     path: '/:path(.*)*',
     name: 'PageNotFound',
@@ -96,6 +61,41 @@ export const PAGE_NOT_FOUND_ROUTE: any = {
             }
         }
     ]
+}
+
+// import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
+// const modules = import.meta.globEager('./modules/**/*.ts')
+const modules: any = import.meta.glob('./modules/**/*.ts', { eager: true })
+const routeModuleList: any[] = []
+
+// 加入到路由集合中
+Object.keys(modules).forEach((key) => {
+    const mod = modules[key].default || {}
+    const modList = Array.isArray(mod) ? [...mod] : [mod]
+    routeModuleList.push(...modList)
+})
+
+export const asyncRoutes = [...routeModuleList, PAGE_NOT_FOUND_ROUTE]
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes: [...baseRoutes, PAGE_NOT_FOUND_ROUTE]
+})
+
+/** 重置路由 */
+export function resetRouter() {
+    // 注意：所有动态路由路由必须带有 Name 属性，否则可能会不能完全重置干净
+    try {
+        router.getRoutes().forEach((route) => {
+            const { name, meta } = route
+            if (name && meta.roles?.length) {
+                router.hasRoute(name) && router.removeRoute(name)
+            }
+        })
+    } catch {
+        // 强制刷新浏览器也行，只是交互体验不是很好
+        window.location.reload()
+    }
 }
 
 export default router
