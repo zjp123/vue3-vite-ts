@@ -1,6 +1,12 @@
 <template>
     <el-row>
         <Header />
+        <!-- <RouterView /> -->
+        <RouterView>
+            <template #default="{ Component, route }">
+                <component :is="Component" :key="route.fullPath" />
+            </template>
+        </RouterView>
     </el-row>
 </template>
 

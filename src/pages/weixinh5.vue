@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <el-button id="authBtn">登陆</el-button>
+        <el-button id="authBtn">微信h5</el-button>
     </div>
 </template>
 <script lang="ts">
