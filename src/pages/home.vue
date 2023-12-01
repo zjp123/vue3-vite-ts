@@ -4,13 +4,16 @@
     </div>
 </template>
 <script lang="ts">
-ElMessage({
-    showClose: true,
-    message: '登录成功',
-    type: 'success'
-})
+// import { useRoute } from 'vue-router'
+
 export default {
-    name: 'HomeCom'
+    name: 'Home',
+    setup() {
+        // const route = useRoute()
+        // if (route.fullPath !== '/') {
+        //     return
+        // }
+    }
 }
 </script>
 <style lang="less"></style>
