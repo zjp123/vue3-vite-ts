@@ -5,7 +5,7 @@ import WXh5 from '../pages/weixinh5.vue'
 import LoginCom from '../pages/login.vue'
 import NotFound from '../pages/404.vue'
 import HomeCom from '../pages/home.vue'
-import LAYOUT from '@/components/layout/index.vue'
+// import LAYOUT from '@/components/layout/index.vue'
 
 export const baseRoutes: RouteRecordRaw[] = [
     {
@@ -43,7 +43,7 @@ export const baseRoutes: RouteRecordRaw[] = [
 export const PAGE_NOT_FOUND_ROUTE: any = {
     path: '/:path(.*)*',
     name: 'PageNotFound',
-    component: LAYOUT,
+    // component: LAYOUT,
     meta: {
         title: 'ErrorPage',
         hideBreadcrumb: true,

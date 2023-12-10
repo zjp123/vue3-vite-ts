@@ -29,7 +29,7 @@ router.beforeEach(async (to, _from, next) => {
         // } else {
         // 其他没有访问权限的页面将被重定向到登录页面
         // }
-        if (to.path !== '/login') {
+        if (to.path !== '/login' && to.name !== 'PageNotFound') {
             NProgress.done()
             // redirect login page 这段代码是拼接  redirect 登陆后重回到这个页面
             let query = {}
