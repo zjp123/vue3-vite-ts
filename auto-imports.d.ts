@@ -6,6 +6,7 @@
 export {}
 declare global {
     const EffectScope: (typeof import('vue'))['EffectScope']
+    const ElConfigProvider: (typeof import('element-plus/es'))['ElConfigProvider']
     const ElMessage: (typeof import('element-plus/es'))['ElMessage']
     const computed: (typeof import('vue'))['computed']
     const createApp: (typeof import('vue'))['createApp']
@@ -71,4 +72,21 @@ declare global {
     const watchEffect: (typeof import('vue'))['watchEffect']
     const watchPostEffect: (typeof import('vue'))['watchPostEffect']
     const watchSyncEffect: (typeof import('vue'))['watchSyncEffect']
+}
+// for type re-export
+declare global {
+    // @ts-ignore
+    export type {
+        Component,
+        ComponentPublicInstance,
+        ComputedRef,
+        ExtractDefaultPropTypes,
+        ExtractPropTypes,
+        ExtractPublicPropTypes,
+        InjectionKey,
+        PropType,
+        Ref,
+        VNode,
+        WritableComputedRef
+    } from 'vue'
 }

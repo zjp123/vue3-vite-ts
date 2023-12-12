@@ -4,7 +4,6 @@
         "ComponentPublicInstance": true,
         "ComputedRef": true,
         "EffectScope": true,
-        "ElMessage": true,
         "ExtractDefaultPropTypes": true,
         "ExtractPropTypes": true,
         "ExtractPublicPropTypes": true,
@@ -76,6 +75,8 @@
         "watch": true,
         "watchEffect": true,
         "watchPostEffect": true,
-        "watchSyncEffect": true
+        "watchSyncEffect": true,
+        "ElConfigProvider": true,
+        "ElMessage": true
     }
 }

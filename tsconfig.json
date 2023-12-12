@@ -13,7 +13,11 @@
         "esModuleInterop": true,
         "lib": ["esnext", "dom"],
         "skipLibCheck": true,
-        "allowJs": true
+        "allowJs": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
     "include": [
         "src/**/*.ts",
@@ -22,7 +26,8 @@
         "src/**/*.vue",
         "global.d.ts",
         "typings.d.ts",
-        "typings/**/*"
+        "typings/**/*",
+        "./auto-imports.d.ts"
     ],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

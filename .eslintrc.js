@@ -16,6 +16,7 @@ module.exports = {
         'plugin:vue/vue3-recommended',
         'plugin:prettier/recommended',
         'plugin:@typescript-eslint/recommended',
+        './.eslintrc-auto-import.json'
 
     ],
     parser: "vue-eslint-parser",
@@ -34,6 +35,7 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
-        'vue/no-unused-vars': 'error'
+        'vue/no-unused-vars': 'error',
+        'vue/multi-word-component-names': 'off'
     }
 }

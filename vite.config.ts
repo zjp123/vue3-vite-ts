@@ -5,16 +5,33 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import * as path from 'path'
 // import {name} from './package'
 // https://vitejs.dev/config/
 export default defineConfig({
+    envDir: './',
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './src')
+        }
+    },
     plugins: [
         vue(),
         vueJsx({
             // options are passed on to @vue/babel-plugin-jsx
         }),
         AutoImport({
-            resolvers: [ElementPlusResolver()]
+            resolvers: [ElementPlusResolver()],
+            imports: ['vue', 'vue-router', 'vuex'],
+            // 增加 eslintrc，自动生成 .eslintrc-auto-import.json 文件
+            eslintrc: {
+                enabled: true
+            }
+            // eslintrc: {
+            //     enabled: false, // Default `false`
+            //     // filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+            //     globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
+            // }
         }),
         Components({
             resolvers: [ElementPlusResolver()]

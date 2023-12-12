@@ -14,9 +14,19 @@ declare module '*.tiff'
 
 interface Window {
     [propName: string]: any
-    wx: any
 }
 
 // declare module wx {}
 
 declare let ga: () => void
+
+// declare const wx: any
+
+// declare module 'js-cookie'
+
+declare module '*.vue' {
+    import type { DefineComponent } from 'vue'
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+    const component: DefineComponent<{}, {}, any>
+    export default component
+}
