@@ -93,6 +93,7 @@ router.beforeEach(async (to, _from, next) => {
             // const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
             // next(nextData)
             // return
+            // await userStore.getUserInfoAction({ token })
             next()
             return
         }

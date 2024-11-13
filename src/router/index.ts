@@ -5,28 +5,44 @@ import WXh5 from '../pages/weixinh5.vue'
 import LoginCom from '../pages/login.vue'
 import NotFound from '../pages/404.vue'
 import HomeCom from '../pages/home.vue'
-// import LAYOUT from '@/components/layout/index.vue'
+import LAYOUT from '@/components/layout/index.vue'
 
 export const baseRoutes: RouteRecordRaw[] = [
     {
         path: '/',
-        name: 'Home',
-        component: HomeCom
-    },
-    {
-        path: '/shallowReactive',
-        name: 'shallowReactive',
-        component: ShallowReactiveCom
-    },
-    {
-        path: '/watcheffect',
-        name: 'watcheffect',
-        component: WatcheffectCom
-    },
-    {
-        path: '/wxh5',
-        name: 'wxh5',
-        component: WXh5
+        name: '/',
+        component: LAYOUT,
+        // component: HomeCom
+        redirect: '/home',
+        children: [
+            {
+                path: 'home',
+                component: HomeCom,
+                name: 'Home', // 用于 keep-alive, 必须与SFC自动推导或者显示声明的组件name一致
+                meta: {
+                    title: '首页',
+                    icon: 'homepage',
+                    affix: true,
+                    keepAlive: true,
+                    alwaysShow: false
+                }
+            },
+            {
+                path: 'shallowReactive',
+                name: 'ShallowReactive',
+                component: ShallowReactiveCom
+            },
+            {
+                path: '/watcheffect',
+                name: 'Watcheffect',
+                component: WatcheffectCom
+            },
+            {
+                path: '/wxh5',
+                name: 'Wxh5',
+                component: WXh5
+            }
+        ]
     },
     {
         path: '/login',

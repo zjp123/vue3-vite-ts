@@ -31,8 +31,8 @@ export default {
             <img style="width: 100px" src="../../images/xishilai.png" alt="logo" />
         </el-menu-item>
         <div class="flex-grow" />
-        <el-menu-item index="1">Processing Center</el-menu-item>
-        <el-sub-menu index="2">
+        <el-menu-item index="1">{{ userInfo.userName }}</el-menu-item>
+        <!-- <el-sub-menu index="2">
             <template #title>Workspace</template>
             <el-menu-item index="2-1">item one</el-menu-item>
             <el-menu-item index="2-2">item two</el-menu-item>
@@ -43,14 +43,16 @@ export default {
                 <el-menu-item index="2-4-2">item two</el-menu-item>
                 <el-menu-item index="2-4-3">item three</el-menu-item>
             </el-sub-menu>
-        </el-sub-menu>
+        </el-sub-menu> -->
     </el-menu>
 </template>
 
 <script lang="ts" setup>
+import { useUserStore } from '@/store/modules/user'
 import { ref } from 'vue'
-
+const userStore = useUserStore()
 const activeIndex = ref('1')
+const userInfo = computed(() => userStore.userInfo)
 const handleSelect = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
 }

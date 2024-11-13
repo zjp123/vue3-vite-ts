@@ -19,7 +19,7 @@ declare module 'vue' {
         ElResult: (typeof import('element-plus/es'))['ElResult']
         ElRow: (typeof import('element-plus/es'))['ElRow']
         ElSubMenu: (typeof import('element-plus/es'))['ElSubMenu']
-        Header: (typeof import('./src/components/Header.vue'))['default']
+        Header: (typeof import('./src/components/layout/Header.vue'))['default']
         HelloWorld: (typeof import('./src/components/HelloWorld.vue'))['default']
         Layout: (typeof import('./src/components/layout/index.vue'))['default']
         RouterLink: (typeof import('vue-router'))['RouterLink']

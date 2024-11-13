@@ -1,8 +1,8 @@
 <template>
     <div id="container">
-        <Aside v-show="isShowAiside" class="aside-style" />
+        <Aside class="aside-style" />
         <div style="display: flex; flex-direction: column; width: 100%">
-            <Header v-show="isShowAiside" />
+            <Header />
             <!-- <RouterView /> -->
             <RouterView>
                 <template #default="{ Component, route }">
@@ -15,27 +15,32 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-
+// import { useRoute, useRouter } from 'vue-router'
+// import { useUserStore } from '@/store/modules/user'
 import Header from './Header.vue'
 import Aside from './aside.vue'
+// const userStore = useUserStore()
 
-const isShowAiside = ref(false)
-const router = useRouter()
-onMounted(() => {
-    router.afterEach(() => {
-        const currentRoute = useRoute()
-        console.log('当前路由信息:', currentRoute)
-        if (currentRoute.path === '/login' || currentRoute.name === 'PageNotFound') {
-            // 在/login 路由下的逻辑
-            console.log('在/login 路由下')
-            isShowAiside.value = false
-        } else {
-            isShowAiside.value = true
-        }
-    })
-})
+// const getUserInfoFn = async () => {
+//     await userStore.afterLoginAction()
+// }
+
+// getUserInfoFn()
+// const isShowAiside = ref(false)
+// const router = useRouter()
+// onMounted(() => {
+//     router.afterEach(() => {
+//         const currentRoute = useRoute()
+//         console.log('当前路由信息:', currentRoute)
+//         if (currentRoute.path === '/login' || currentRoute.name === 'PageNotFound') {
+//             // 在/login 路由下的逻辑
+//             console.log('在/login 路由下')
+//             isShowAiside.value = false
+//         } else {
+//             isShowAiside.value = true
+//         }
+//     })
+// })
 </script>
 <style lang="less">
 #container {
