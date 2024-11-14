@@ -6,7 +6,7 @@
             <!-- <RouterView /> -->
             <RouterView>
                 <template #default="{ Component, route }">
-                    <component :is="Component" :key="route.fullPath" />
+                    <component :is="Component" :key="route.fullPath" style="padding: 20px" />
                 </template>
             </RouterView>
         </div>

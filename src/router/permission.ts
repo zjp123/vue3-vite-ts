@@ -50,6 +50,8 @@ router.beforeEach(async (to, _from, next) => {
     // 手动刷新时 有token 没有userid
     if (!userStore.userId) {
         try {
+            // 因为我的业务流程是根据token 去请求用户信息，所以这里需要判断token是否过期
+            // 如果是登录时直接获取用户信息就不用这一步了
             await userStore.getUserInfoAction({ token })
         } catch (err) {
             next()
@@ -86,15 +88,11 @@ router.beforeEach(async (to, _from, next) => {
             // next()
             return
         } else {
-            // console.log(999)
-            // if (_from.path === to.path) return
-            // const redirectPath = (_from.query.redirect || to.path) as string
-            // const redirect = decodeURIComponent(redirectPath)
-            // const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
-            // next(nextData)
-            // return
-            // await userStore.getUserInfoAction({ token })
-            next()
+            const redirectPath = (_from.query.redirect || to.path) as string
+            const redirect = decodeURIComponent(redirectPath)
+            const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
+            next(nextData)
+            // next()
             return
         }
         // next()
