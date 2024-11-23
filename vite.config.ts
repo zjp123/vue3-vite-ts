@@ -77,7 +77,7 @@ export default defineConfig({
     },
     build: {
         target: 'es2015',
-        outDir: path.resolve(__dirname, './vue3_dist'),
+        outDir: path.resolve(__dirname, './dist'),
         minify: 'esbuild',
         // terserOptions: {
         //   compress: {

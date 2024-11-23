@@ -160,26 +160,20 @@ function createRequest(service: AxiosInstance) {
             url: string,
             params: Record<string, any> = {},
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            baseUrl: string = 'BASE_API',
-            data: any
+            baseUrl: string = 'BASE_API'
         ): Promise<T> {
-            if (url) {
-                return new Promise((resolve, reject) => {
-                    service
-                        .post(url, {
-                            data: params
-                        })
-                        .then((res) => {
-                            resolve(res as T)
-                        })
-                        .catch((err) => {
-                            reject(err)
-                        })
-                })
-            } else {
-                console.log(data, 'data111')
-                return data.data
-            }
+            return new Promise((resolve, reject) => {
+                service
+                    .post(url, {
+                        data: params
+                    })
+                    .then((res) => {
+                        resolve(res as T)
+                    })
+                    .catch((err) => {
+                        reject(err)
+                    })
+            })
         },
         fetchPostFormBody(url: string, params = {}) {
             const config = {
