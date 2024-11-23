@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         Aside: (typeof import('./src/components/layout/aside.vue'))['default']
+        ElAvatar: (typeof import('element-plus/es'))['ElAvatar']
         ElButton: (typeof import('element-plus/es'))['ElButton']
         ElCol: (typeof import('element-plus/es'))['ElCol']
         ElConfigProvider: (typeof import('element-plus/es'))['ElConfigProvider']
@@ -16,9 +17,11 @@ declare module 'vue' {
         ElMenuItem: (typeof import('element-plus/es'))['ElMenuItem']
         ElMenuItemGroup: (typeof import('element-plus/es'))['ElMenuItemGroup']
         ElMessage: (typeof import('element-plus/es'))['ElMessage']
+        ElPageHeader: (typeof import('element-plus/es'))['ElPageHeader']
         ElResult: (typeof import('element-plus/es'))['ElResult']
         ElRow: (typeof import('element-plus/es'))['ElRow']
         ElSubMenu: (typeof import('element-plus/es'))['ElSubMenu']
+        ElTag: (typeof import('element-plus/es'))['ElTag']
         Header: (typeof import('./src/components/layout/Header.vue'))['default']
         HelloWorld: (typeof import('./src/components/HelloWorld.vue'))['default']
         Layout: (typeof import('./src/components/layout/index.vue'))['default']

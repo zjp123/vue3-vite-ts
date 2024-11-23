@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import postcssPresetEnv from 'postcss-preset-env'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -6,6 +6,13 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import * as path from 'path'
+import { wrapperEnv } from './src/utils/build'
+const root = process.cwd()
+const mode = process.env.NODE_ENV as string
+const env = loadEnv(mode, root)
+const viteEnv = wrapperEnv(env)
+// console.log(viteEnv, 'viteEnvviteEnv')
+const { VITE_DROP_CONSOLE } = viteEnv
 // import {name} from './package'
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -63,5 +70,24 @@ export default defineConfig({
                 }
             }
         }
+    },
+    esbuild: {
+        // drop: process.env.NODE_ENV === 'production' ? ['console.log'] : []
+        pure: VITE_DROP_CONSOLE ? ['console.log'] : []
+    },
+    build: {
+        target: 'es2015',
+        outDir: path.resolve(__dirname, './dist'),
+        minify: 'esbuild',
+        // terserOptions: {
+        //   compress: {
+        //     keep_infinity: true,
+        //     // Used to delete console in production environment
+        //     drop_console: VITE_DROP_CONSOLE,
+        //   },
+        // },
+        // Turning off brotliSize display can slightly reduce packaging time
+        reportCompressedSize: true,
+        chunkSizeWarningLimit: 500
     }
 })

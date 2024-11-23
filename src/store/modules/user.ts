@@ -49,7 +49,8 @@ export const useUserStore = defineStore('user', () => {
         console.log(tokenNew, 'token')
         setToken(tokenNew)
         token.value = tokenNew
-        return afterLoginAction()
+        return tokenNew
+        // return afterLoginAction()
     }
 
     /** 获取用户详情 */
@@ -63,6 +64,9 @@ export const useUserStore = defineStore('user', () => {
         // 验证返回的 roleList 是否为一个非空数组，否则塞入一个没有任何作用的默认角色，防止路由守卫逻辑进入无限循环
         roleList.value = roleListNew?.length > 0 ? roleListNew : ['admin']
         userId.value = userIdNew
+        userInfo.roleList = roleListNew
+        userInfo.userName = userNameNew
+        userInfo.userId = userIdNew
         // return new Promise((resolve, reject) => {
         //     try {
         //         setTimeout(() => {
@@ -80,7 +84,8 @@ export const useUserStore = defineStore('user', () => {
     async function afterLoginAction(): Promise<UserInfo | null> {
         if (!token.value) return null
         // get user info
-        const userInfo: UserInfo = await getUserInfoAction({ token: token.value })
+        console.log(222)
+        const userInfoRes: UserInfo = await getUserInfoAction({ token: token.value })
         // const permissionStore = usePermissionStore()
         // if (!permissionStore.isDynamicAddedRoute) {
         //     const routes = await permissionStore.buildRoutesAction()
@@ -90,6 +95,9 @@ export const useUserStore = defineStore('user', () => {
         //     router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw)
         //     permissionStore.setDynamicAddedRoute(true)
         // }
+        userInfo.roleList = userInfoRes.roleList
+        userInfo.userName = userInfoRes.userName
+        userInfo.userId = userInfoRes.userId
         const routes = await permissionStore.buildRoutesAction()
         routes.forEach((route: any) => {
             router.addRoute(route)
@@ -106,7 +114,7 @@ export const useUserStore = defineStore('user', () => {
             redirectValue = decodeURIComponent(redirectValue)
         }
         await router.replace(redirectValue || '/')
-        return userInfo
+        return userInfoRes
     }
     // async function getUserInfoAction(): Promise<UserInfo | null> {
     //     if (!this.getToken) return null
