@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# 只美化本次缓存修改的文件 不美化全局文件--放弃pretty-quick
+# npx pretty-quick --staged
+# npm run lint
+# 只校验本次缓存修改的文件，不用校验全局项目
+# npx lint-staged
+npm run precommit
