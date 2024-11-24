@@ -6,7 +6,7 @@
 </template>
 <script lang="ts">
 import { watchEffect, ref } from 'vue'
-export default {
+export default defineComponent({
     name: 'WatchEffect',
     setup() {
         ElMessage({
@@ -40,6 +40,6 @@ export default {
         //   this.count++
         // }
     }
-}
+})
 </script>
 <style lang=""></style>

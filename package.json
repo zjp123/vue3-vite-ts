@@ -6,6 +6,7 @@
         "dev": "cross-env NODE_ENV=development vite",
         "start": "npm run dev",
         "build": "cross-env NODE_ENV=production vue-tsc --noEmit && vite build",
+        "build-test": "cross-env NODE_ENV=development vue-tsc --noEmit && vite build",
         "preview": "vite preview",
         "prettier": "prettier --write .",
         "prepare": "husky install",
