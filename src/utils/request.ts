@@ -158,9 +158,9 @@ function createRequest(service: AxiosInstance) {
         },
         fetchPost<T = any>(
             url: string,
-            params: Record<string, any> = {},
+            params: Record<string, any> = {}
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            baseUrl: string = 'BASE_API'
+            // baseUrl: string = 'BASE_API'
         ): Promise<T> {
             return new Promise((resolve, reject) => {
                 service
