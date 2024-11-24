@@ -116,7 +116,7 @@ export function transformRouteToMenu(routeModList: any[], routerMapping = false)
     // 提取树指定结构
     const list = treeMap(routeList, {
         conversion: (node: any) => {
-            const { meta: { title, hideMenu = false } = {} } = node
+            const { meta: { title = '', hideMenu = false } = {} } = node
 
             return {
                 ...(node.meta || {}),
