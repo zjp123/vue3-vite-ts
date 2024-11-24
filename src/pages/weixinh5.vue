@@ -6,7 +6,7 @@
 <script lang="ts">
 import API from '@/api/index'
 import { wxUtil } from '@/utils'
-export default {
+export default defineComponent({
     name: 'WeixinH5',
     mounted() {
         // this.checkUserAuth()
@@ -46,7 +46,7 @@ export default {
             })
         }
     }
-}
+})
 </script>
 <style lang="less">
 #authBtn {

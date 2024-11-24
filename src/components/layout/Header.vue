@@ -65,6 +65,7 @@ export default {
 
 <script lang="ts" setup>
 import { useUserStore } from '@/store/modules/user'
+import logo from '../../images/xishilai.png'
 // import { ref } from 'vue'
 const userStore = useUserStore()
 // const activeIndex = ref('1')
@@ -72,7 +73,6 @@ const userInfo = computed(() => userStore.userInfo)
 // const handleSelect = (key: string, keyPath: string[]) => {
 //     console.log(key, keyPath)
 // }
-import logo from '../../images/xishilai.png'
 </script>
 
 <style lang="less">

@@ -13,14 +13,36 @@ const env = loadEnv(mode, root)
 const viteEnv = wrapperEnv(env)
 // console.log(viteEnv, 'viteEnvviteEnv')
 const { VITE_DROP_CONSOLE } = viteEnv
+
 // import {name} from './package'
 // https://vitejs.dev/config/
 export default defineConfig({
     envDir: './',
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './src')
+            '@': path.resolve(__dirname, './src'),
+            '#': path.resolve(__dirname, './types')
         }
+        // alias: [
+        // {
+        //     '@': path.resolve(__dirname, './src'),
+        // },
+        //  {
+        //     find: 'vue-i18n',
+        //     replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
+        //   },
+        // /@/xxxx => src/xxxx
+        //   {
+        //     find: /@/,
+        //     // replacement: pathResolve('src') + '/',
+        //     replacement: path.resolve(__dirname, './src'),
+        //   },
+        //   // /#/xxxx => types/xxxx
+        //   {
+        //     find: /\/#\//,
+        //     replacement: path.resolve(__dirname, './types'),
+        //   },
+        // ]
     },
     plugins: [
         vue(),
@@ -73,10 +95,12 @@ export default defineConfig({
     },
     esbuild: {
         // drop: process.env.NODE_ENV === 'production' ? ['console.log'] : []
-        pure: VITE_DROP_CONSOLE ? ['console.log'] : []
+        // pure: VITE_DROP_CONSOLE ? ['console.log'] : []
+        pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
     },
     build: {
-        target: 'es2015',
+        target: 'es2020',
+        cssTarget: 'chrome80',
         outDir: path.resolve(__dirname, './dist'),
         minify: 'esbuild',
         // terserOptions: {
@@ -89,5 +113,15 @@ export default defineConfig({
         // Turning off brotliSize display can slightly reduce packaging time
         reportCompressedSize: true,
         chunkSizeWarningLimit: 500
+    },
+    optimizeDeps: {
+        // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
+        include: [
+            '@vue/runtime-core',
+            '@vue/shared'
+            //   '@iconify/iconify',
+            //   'ant-design-vue/es/locale/zh_CN',
+            //   'ant-design-vue/es/locale/en_US',
+        ]
     }
 })

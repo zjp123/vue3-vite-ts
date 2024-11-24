@@ -6,14 +6,14 @@
 </template>
 <script lang="ts">
 import { watchEffect, ref } from 'vue'
-export default {
+export default defineComponent({
     name: 'WatchEffect',
     setup() {
-        ElMessage({
-            showClose: true,
-            message: '登录成功66',
-            type: 'success'
-        })
+        // ElMessage({
+        //     showClose: true,
+        //     message: '登录成功66',
+        //     type: 'success'
+        // })
         const count = ref(0)
         watchEffect((onCleanup) => {
             console.log(count.value, 'count')
@@ -40,6 +40,6 @@ export default {
         //   this.count++
         // }
     }
-}
+})
 </script>
 <style lang=""></style>

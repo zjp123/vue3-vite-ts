@@ -30,9 +30,9 @@ const obj = {
 const state = shallowReactive(obj)
 state.foo = 666
 
-const clickFn = () => {
-    state.nested.bar = 99
-    console.log(obj) // 虽然bar 不是响应式  但是obj的值会变化
-}
+// const clickFn = () => {
+//     state.nested.bar = 99
+//     console.log(obj) // 虽然bar 不是响应式  但是obj的值会变化
+// }
 </script>
 <style lang=""></style>

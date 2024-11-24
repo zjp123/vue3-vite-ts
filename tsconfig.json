@@ -1,23 +1,52 @@
 {
     "compilerOptions": {
-        "outDir": "build/dist",
+        // "outDir": "build/dist",
+        // "target": "esnext",
+        // "useDefineForClassFields": true,
+        // "module": "esnext",
+        // "strict": true,
+        // "jsx": "preserve",
+        // "jsxImportSource": "vue",
+        // "sourceMap": true,
+        // "moduleResolution": "node",
+        // "resolveJsonModule": true,
+        // "isolatedModules": true,
+        // "esModuleInterop": true,
+        // "lib": ["esnext", "dom"],
+        // "skipLibCheck": true,
+        // "allowJs": true,
+        // "baseUrl": ".",
+        // "types": ["vite/client"],
+        // "paths": {
+        //     "@/*": ["src/*"]
+        // },
         "target": "esnext",
-        "useDefineForClassFields": true,
         "module": "esnext",
         "moduleResolution": "node",
         "strict": true,
+        "noLib": false,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "strictFunctionTypes": false,
         "jsx": "preserve",
-        "sourceMap": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "lib": ["esnext", "dom"],
-        "skipLibCheck": true,
-        "allowJs": true,
         "baseUrl": ".",
+        "allowJs": true,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "experimentalDecorators": true,
+        "lib": ["dom", "esnext"],
+        "noImplicitAny": false,
+        "skipLibCheck": true,
+        "types": ["vite/client"],
+        "removeComments": true,
         "paths": {
-            "@/*": ["src/*"]
-        }
+            "@/*": ["src/*"],
+            "/#/*": ["types/*"]
+        },
+        "typeRoots": ["./node_modules/@types", "types", "src/**/*.d.ts"]
     },
     "include": [
         "src/**/*.ts",
@@ -27,7 +56,10 @@
         "global.d.ts",
         "typings.d.ts",
         "typings/**/*",
-        "./auto-imports.d.ts"
+        "./auto-imports.d.ts",
+        "types/env.d.ts",
+        "types/extendProperties.d.ts"
     ],
+    "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
