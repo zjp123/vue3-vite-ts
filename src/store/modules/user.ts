@@ -1,11 +1,11 @@
 import { reactive, ref } from 'vue'
-import store from '@/store'
+import { store } from '@/store'
 import { defineStore } from 'pinia'
 import { usePermissionStore } from './permission'
 // import { useTagsViewStore } from './tags-view'
 // import { useSettingsStore } from './settings'
 import { getToken, removeToken, setToken } from '@/utils/cookies'
-import router, { resetRouter } from '@/router/index'
+import { routerHistory, resetRouter } from '@/router/index'
 import { loginApi, getUserInfoApi } from '@/api/login'
 // import { usePermissionStore } from './permission'
 // import { type LoginRequestData } from '@/api/login/types/login'
@@ -35,7 +35,6 @@ export const useUserStore = defineStore('user', () => {
         userId: ''
     })
 
-    const permissionStore = usePermissionStore()
     // const tagsViewStore = useTagsViewStore()
     // const settingsStore = useSettingsStore()
 
@@ -44,8 +43,8 @@ export const useUserStore = defineStore('user', () => {
         roleList.value = value
     }
     /** 登录 */
-    const login = async ({ username, password, code }: any) => {
-        const { token: tokenNew } = await loginApi({ username, password, code })
+    const login = async ({ phone, password }: any) => {
+        const { token: tokenNew } = await loginApi({ phone, password })
         console.log(tokenNew, 'token')
         setToken(tokenNew)
         token.value = tokenNew
@@ -98,9 +97,10 @@ export const useUserStore = defineStore('user', () => {
         userInfo.roleList = userInfoRes.roleList
         userInfo.userName = userInfoRes.userName
         userInfo.userId = userInfoRes.userId
+        const permissionStore = usePermissionStore()
         const routes = await permissionStore.buildRoutesAction()
         routes.forEach((route: any) => {
-            router.addRoute(route)
+            routerHistory.addRoute(route)
         })
         // router.addRoute(PAGE_NOT_FOUND_ROUTE)
         permissionStore.setDynamicAddedRoute(true)
@@ -109,27 +109,14 @@ export const useUserStore = defineStore('user', () => {
         let redirectValue = params.get('redirect')
 
         // 获取redirect字段的值
-        console.log(routes, redirectValue, 'afterLoginAction11')
+        console.log(routes, redirectValue, 'afterLoginAction')
         if (redirectValue) {
             redirectValue = decodeURIComponent(redirectValue)
         }
-        await router.replace(redirectValue || '/')
+        await routerHistory.replace(redirectValue || '/')
         return userInfoRes
     }
-    // async function getUserInfoAction(): Promise<UserInfo | null> {
-    //     if (!this.getToken) return null
-    //     const userInfo = await getUserInfo()
-    //     const { roles = [] } = userInfo
-    //     if (isArray(roles)) {
-    //         const roleList = roles.map((item) => item.value) as RoleEnum[]
-    //         this.setRoleList(roleList)
-    //     } else {
-    //         userInfo.roles = []
-    //         this.setRoleList([])
-    //     }
-    //     this.setUserInfo(userInfo)
-    //     return userInfo
-    // }
+
     /** 切换角色 */
     const changeRoles = async (role: string) => {
         const newToken = 'token-' + role

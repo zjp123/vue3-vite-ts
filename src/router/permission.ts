@@ -1,4 +1,4 @@
-import router from '@/router'
+import { routerHistory } from '@/router/index'
 import { useUserStoreWithOut } from '@/store/modules/user'
 import { usePermissionStoreWithout } from '@/store/modules/permission'
 import { ElMessage } from 'element-plus'
@@ -14,11 +14,9 @@ import 'nprogress/nprogress.css'
 const { setTitle } = useTitle()
 NProgress.configure({ showSpinner: false })
 
-router.beforeEach(async (to, _from, next) => {
+routerHistory.beforeEach(async (to, _from, next) => {
     // fixBlankPage()
     NProgress.start()
-    const userStore = useUserStoreWithOut()
-    const permissionStore = usePermissionStoreWithout()
     const token = getToken()
 
     // 判断该用户是否已经登录
@@ -40,18 +38,17 @@ router.beforeEach(async (to, _from, next) => {
             }
             next({ path: '/login', replace: true, query })
             return
-        } else {
-            next() // 程序往下走
-            return
         }
     }
-
+    const permissionStore = usePermissionStoreWithout()
+    const userStore = useUserStoreWithOut()
     // get userinfo while last fetch time is empty
     // 手动刷新时 有token 没有userid
     if (!userStore.userId) {
         try {
             // 因为我的业务流程是根据token 去请求用户信息，所以这里需要判断token是否过期
             // 如果是登录时直接获取用户信息就不用这一步了
+            console.log('走这了吗')
             await userStore.getUserInfoAction({ token })
         } catch (err) {
             next()
@@ -74,9 +71,10 @@ router.beforeEach(async (to, _from, next) => {
     // 如果用户已经获得其权限角色--有了token 就一定有用户信息
     try {
         // 下面这段代码看似没用，但本地开发时，热更新就会找不到对应的路由，因为有的路由是动态的，调的接口
-        const routes = await permissionStore.buildRoutesAction()
+        // const routes = await permissionStore.buildRoutesAction()----记得复原
+        const routes = []
         routes.forEach((route: any) => {
-            router.addRoute(route)
+            routerHistory.addRoute(route)
         })
         console.log(_from, to.fullPath, routes, '哈哈哈哈哈哈啊啊啊啊啊啊啊啊啊啊啊')
         permissionStore.setDynamicAddedRoute(true)
@@ -106,7 +104,7 @@ router.beforeEach(async (to, _from, next) => {
     }
 })
 
-router.afterEach((to) => {
+routerHistory.afterEach((to) => {
     console.log(666)
     // setRouteChange(to)
     setTitle((to as any).meta.title)

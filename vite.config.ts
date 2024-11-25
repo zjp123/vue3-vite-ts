@@ -13,6 +13,7 @@ const env = loadEnv(mode, root)
 const viteEnv = wrapperEnv(env)
 // console.log(viteEnv, 'viteEnvviteEnv')
 const { VITE_DROP_CONSOLE } = viteEnv
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 // import {name} from './package'
 // https://vitejs.dev/config/
@@ -64,7 +65,8 @@ export default defineConfig({
         }),
         Components({
             resolvers: [ElementPlusResolver()]
-        })
+        }),
+        vueSetupExtend()
     ],
     server: {
         headers: {
