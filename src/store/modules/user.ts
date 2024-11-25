@@ -1,5 +1,5 @@
 import { reactive, ref } from 'vue'
-import store from '@/store'
+import { store } from '@/store'
 import { defineStore } from 'pinia'
 import { usePermissionStore } from './permission'
 // import { useTagsViewStore } from './tags-view'

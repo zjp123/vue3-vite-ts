@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import store from '@/store'
+import { store } from '@/store'
 import { defineStore } from 'pinia'
 import { PAGE_NOT_FOUND_ROUTE, baseRoutes } from '@/router/index'
 // import { useUserStore } from './user'

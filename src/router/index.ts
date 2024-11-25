@@ -3,7 +3,7 @@ import ShallowReactiveCom from '../pages/shallowReactive.vue'
 import WatcheffectCom from '../pages/watcheffect.vue'
 import WXh5 from '../pages/weixinh5.vue'
 import LoginCom from '../pages/login.vue'
-import NotFound from '../pages/404.vue'
+// import NotFound from '../pages/404.vue'
 import HomeCom from '../pages/home.vue'
 import LAYOUT from '@/components/layout/index.vue'
 
@@ -47,36 +47,45 @@ export const baseRoutes: RouteRecordRaw[] = [
     {
         path: '/login',
         name: 'LoginCom',
-        component: LoginCom
-    },
-    {
-        path: '/404',
-        name: 'NotFound',
-        component: NotFound
+        // component: LoginCom
+        component: () => LoginCom
     }
+    // {
+    //     path: '/404',
+    //     name: 'NotFound',
+    //     component: NotFound
+    // }
 ]
 
 export const PAGE_NOT_FOUND_ROUTE: any = {
+    // path: '/:path(.*)*',
+    // name: 'PageNotFound',
+    // // component: LAYOUT,
+    // meta: {
+    //     title: 'ErrorPage',
+    //     hideBreadcrumb: true,
+    //     hideMenu: true
+    // },
+    // children: [
+    //     {
+    //         path: '/:path(.*)*',
+    //         name: 'PageNotFound',
+    //         component: () => import('@/pages/exception/Exception.vue'),
+    //         meta: {
+    //             title: 'ErrorPage',
+    //             hideBreadcrumb: true,
+    //             hideMenu: true
+    //         }
+    //     }
+    // ]
     path: '/:path(.*)*',
     name: 'PageNotFound',
-    // component: LAYOUT,
+    component: () => import('@/pages/exception/Exception.vue'),
     meta: {
         title: 'ErrorPage',
         hideBreadcrumb: true,
         hideMenu: true
-    },
-    children: [
-        {
-            path: '/:path(.*)*',
-            name: 'PageNotFound',
-            component: () => import('@/pages/exception/Exception.vue'),
-            meta: {
-                title: 'ErrorPage',
-                hideBreadcrumb: true,
-                hideMenu: true
-            }
-        }
-    ]
+    }
 }
 
 // import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
