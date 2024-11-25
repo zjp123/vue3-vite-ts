@@ -93,7 +93,7 @@ Object.keys(modules).forEach((key) => {
 
 export const asyncRoutes = [...routeModuleList, PAGE_NOT_FOUND_ROUTE]
 
-const router = createRouter({
+export const routerHistory = createRouter({
     history: createWebHistory(),
     routes: [...baseRoutes, PAGE_NOT_FOUND_ROUTE]
 })
@@ -102,10 +102,10 @@ const router = createRouter({
 export function resetRouter() {
     // 注意：所有动态路由路由必须带有 Name 属性，否则可能会不能完全重置干净
     try {
-        router.getRoutes().forEach((route) => {
+        routerHistory.getRoutes().forEach((route) => {
             const { name, meta } = route
             if (name && (meta.roles as any)?.length) {
-                router.hasRoute(name) && router.removeRoute(name)
+                routerHistory.hasRoute(name) && routerHistory.removeRoute(name)
             }
         })
     } catch {
@@ -113,5 +113,3 @@ export function resetRouter() {
         window.location.reload()
     }
 }
-
-export default router

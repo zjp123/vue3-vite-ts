@@ -1,11 +1,10 @@
 <!-- <template>
     <div>
-        <el-button :loading="loading" @click="handleLogin">这是登陆页面</el-button>
+        <el-button>pppllpppppppp999啪啪啪pppp</el-button>
     </div>
 </template> -->
 <template>
     <el-card class="auth-container" shadow="hover">
-        <!-- 切换登录/注册 -->
         <div class="tabs">
             <el-button
                 :type="activeTab === 'login' ? 'primary' : 'default'"
@@ -21,7 +20,6 @@
             </el-button>
         </div>
 
-        <!-- 登录表单 -->
         <div v-if="activeTab === 'login'">
             <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" label-width="80px">
                 <el-form-item label="手机号" prop="phone">
@@ -40,7 +38,6 @@
             </el-form>
         </div>
 
-        <!-- 注册表单 -->
         <div v-if="activeTab === 'register'">
             <el-form
                 ref="registerFormRef"
@@ -48,9 +45,6 @@
                 :rules="registerRules"
                 label-width="80px"
             >
-                <!-- <el-form-item label="昵称" prop="name">
-            <el-input v-model="registerForm.name" placeholder="请输入昵称" />
-          </el-form-item> -->
                 <el-form-item label="手机号" prop="phone">
                     <el-input v-model="registerForm.phone" placeholder="请输入手机号" />
                 </el-form-item>
@@ -193,55 +187,57 @@ const handleRegister = () => {
 </style>
 
 <!-- <script lang="ts" setup>
-import { reactive, ref } from "vue";
 import { useUserStore } from '@/store/modules/user'
-import { ElMessage } from 'element-plus'
-import { LocationQuery, LocationQueryValue } from 'vue-router'
-const loading = ref(false)
-const userStore = useUserStore()
-const route = useRoute()
-const router = useRouter()
+console.log(useUserStore)
+// import { ref } from "vue";
 
-async function handleLogin() {
-    // const data = await validForm()
-    // if (!data) return
-    try {
-        loading.value = true
-        // const userInfo: any = await userStore.login({
-        const token: any = await userStore.login({
-            password: '123456',
-            username: 'admin',
-            mode: 'none' //不要默认的错误提示
-        })
-        // console.log(userInfo, 'userInfouserInfo')
-        console.log(token, 'userInfouserInfo')
-        if (token) {
-            ElMessage({
-                showClose: true,
-                message: '登录成功',
-                type: 'success'
-            })
-            const query: LocationQuery = route.query
-            const redirect = (query.redirect as LocationQueryValue) ?? '/'
-            const otherQueryParams = Object.keys(query).reduce((acc: any, cur: string) => {
-                if (cur !== 'redirect') {
-                    acc[cur] = query[cur]
-                }
-                return acc
-            }, {})
-            router.push({ path: redirect, query: otherQueryParams })
-        }
-    } catch (error) {
-        loading.value = false
-        console.log(error)
-        ElMessage({
-            showClose: true,
-            message: '登录失败',
-            type: 'error'
-        })
-    } finally {
-        loading.value = false
-    }
-}
-</script>
-<style lang="less"></style> -->
+// import { ElMessage } from 'element-plus'
+// import { LocationQuery, LocationQueryValue } from 'vue-router'
+// const loading = ref(false)
+// const userStore = useUserStore()
+// const route = useRoute()
+// const router = useRouter()
+
+// async function handleLogin() {
+//     // const data = await validForm()
+//     // if (!data) return
+//     try {
+//         loading.value = true
+//         // const userInfo: any = await userStore.login({
+//         const token: any = await userStore.login({
+//             password: '123456',
+//             username: 'admin',
+//             mode: 'none' //不要默认的错误提示
+//         })
+//         // console.log(userInfo, 'userInfouserInfo')
+//         console.log(token, 'userInfouserInfo')
+//         if (token) {
+//             ElMessage({
+//                 showClose: true,
+//                 message: '登录成功',
+//                 type: 'success'
+//             })
+//             // const query: LocationQuery = route.query
+//             // const redirect = (query.redirect as LocationQueryValue) ?? '/'
+//             // const otherQueryParams = Object.keys(query).reduce((acc: any, cur: string) => {
+//             //     if (cur !== 'redirect') {
+//             //         acc[cur] = query[cur]
+//             //     }
+//             //     return acc
+//             // }, {})
+//             // router.push({ path: redirect, query: otherQueryParams })
+//         }
+//     } catch (error) {
+//         loading.value = false
+//         console.log(error)
+//         ElMessage({
+//             showClose: true,
+//             message: '登录失败',
+//             type: 'error'
+//         })
+//     } finally {
+//         loading.value = false
+//     }
+// }
+// handleLogin()
+</script> -->

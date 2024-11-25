@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <el-button>首页首页</el-button>
+        <el-button>首页首页1133</el-button>
     </div>
 </template>
 <script lang="ts">

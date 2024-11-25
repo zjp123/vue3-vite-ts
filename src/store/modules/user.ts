@@ -5,7 +5,7 @@ import { usePermissionStore } from './permission'
 // import { useTagsViewStore } from './tags-view'
 // import { useSettingsStore } from './settings'
 import { getToken, removeToken, setToken } from '@/utils/cookies'
-import router, { resetRouter } from '@/router/index'
+import { routerHistory, resetRouter } from '@/router/index'
 import { loginApi, getUserInfoApi } from '@/api/login'
 // import { usePermissionStore } from './permission'
 // import { type LoginRequestData } from '@/api/login/types/login'
@@ -35,7 +35,6 @@ export const useUserStore = defineStore('user', () => {
         userId: ''
     })
 
-    const permissionStore = usePermissionStore()
     // const tagsViewStore = useTagsViewStore()
     // const settingsStore = useSettingsStore()
 
@@ -98,9 +97,10 @@ export const useUserStore = defineStore('user', () => {
         userInfo.roleList = userInfoRes.roleList
         userInfo.userName = userInfoRes.userName
         userInfo.userId = userInfoRes.userId
+        const permissionStore = usePermissionStore()
         const routes = await permissionStore.buildRoutesAction()
         routes.forEach((route: any) => {
-            router.addRoute(route)
+            routerHistory.addRoute(route)
         })
         // router.addRoute(PAGE_NOT_FOUND_ROUTE)
         permissionStore.setDynamicAddedRoute(true)
@@ -113,7 +113,7 @@ export const useUserStore = defineStore('user', () => {
         if (redirectValue) {
             redirectValue = decodeURIComponent(redirectValue)
         }
-        await router.replace(redirectValue || '/')
+        await routerHistory.replace(redirectValue || '/')
         return userInfoRes
     }
 

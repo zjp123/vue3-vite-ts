@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router/index'
+import { routerHistory } from './router/index'
 // import router from './router'
 import axios from 'axios'
 import cookies from 'vue-cookies'
@@ -11,9 +11,9 @@ import store from './store'
 // import './public-path';
 
 const app = createApp(App)
-app.use(router)
+app.use(store)
+app.use(routerHistory)
 app.use(VueAxios, axios)
 app.use(cookies)
-app.use(store)
 
 app.mount('#app')
