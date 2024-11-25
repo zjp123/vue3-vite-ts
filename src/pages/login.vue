@@ -71,10 +71,6 @@
 </template>
 
 <script lang="ts" setup>
-defineOptions({
-    name: 'LoginCom',
-    inheritAttrs: false
-})
 import { ref, reactive } from 'vue'
 import { ElMessage, FormInstance } from 'element-plus'
 import {
@@ -83,6 +79,10 @@ import {
 } from '@/api/login'
 import { LocationQuery, LocationQueryValue } from 'vue-router'
 import { useUserStore } from '@/store/modules/user'
+defineOptions({
+    name: 'LoginCom',
+    inheritAttrs: false
+})
 const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
