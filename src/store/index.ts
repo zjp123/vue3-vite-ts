@@ -1,5 +1,13 @@
+// import { createPinia } from 'pinia'
+
+// const store = createPinia()
+
+// export default store
+
 import { createPinia } from 'pinia'
 
 const store = createPinia()
 
-export default store
+export * from './modules/permission'
+export * from './modules/user'
+export { store }

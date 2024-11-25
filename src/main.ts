@@ -6,7 +6,7 @@ import axios from 'axios'
 import cookies from 'vue-cookies'
 import VueAxios from 'vue-axios'
 import '@/router/permission'
-import store from './store'
+import { store } from './store'
 // import { ElButton } from 'element-plus'
 // import './public-path';
 
