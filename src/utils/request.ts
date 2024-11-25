@@ -19,7 +19,7 @@ function createService() {
     const service = axios.create({
         baseURL: import.meta.env.VITE_BASE_API, // api的base_url
         // baseURL: process.env.NODE_ENV === 'development' ? '' : process.env.BASE_API,
-        timeout: 10000 // 请求超时时间,
+        timeout: 50000 // 请求超时时间,
         // withCredentials:true 跨域请求时 是否携带cookie等
     })
     // 请求拦截
@@ -30,9 +30,9 @@ function createService() {
                 headers: {
                     // 携带 Token
                     Authorization: token ? `Bearer ${token}` : undefined,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json;charset=utf-8'
                 },
-                timeout: 5000,
+                timeout: 50000,
                 baseURL: import.meta.env.VITE_BASE_API,
                 data: {}
             }
@@ -48,7 +48,7 @@ function createService() {
             const responseData = response.data
             console.log(responseData, 'responseData')
             if (responseData.code === 200) {
-                return responseData
+                return responseData.data
             } else if (responseData.code === 401) {
                 ElMessage.error(responseData.message)
                 //清除cookie
@@ -164,9 +164,7 @@ function createRequest(service: AxiosInstance) {
         ): Promise<T> {
             return new Promise((resolve, reject) => {
                 service
-                    .post(url, {
-                        data: params
-                    })
+                    .post(url, params)
                     .then((res) => {
                         resolve(res as T)
                     })

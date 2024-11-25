@@ -44,8 +44,8 @@ export const useUserStore = defineStore('user', () => {
         roleList.value = value
     }
     /** 登录 */
-    const login = async ({ username, password, code }: any) => {
-        const { token: tokenNew } = await loginApi({ username, password, code })
+    const login = async ({ phone, password }: any) => {
+        const { token: tokenNew } = await loginApi({ phone, password })
         console.log(tokenNew, 'token')
         setToken(tokenNew)
         token.value = tokenNew
@@ -109,27 +109,14 @@ export const useUserStore = defineStore('user', () => {
         let redirectValue = params.get('redirect')
 
         // 获取redirect字段的值
-        console.log(routes, redirectValue, 'afterLoginAction11')
+        console.log(routes, redirectValue, 'afterLoginAction')
         if (redirectValue) {
             redirectValue = decodeURIComponent(redirectValue)
         }
         await router.replace(redirectValue || '/')
         return userInfoRes
     }
-    // async function getUserInfoAction(): Promise<UserInfo | null> {
-    //     if (!this.getToken) return null
-    //     const userInfo = await getUserInfo()
-    //     const { roles = [] } = userInfo
-    //     if (isArray(roles)) {
-    //         const roleList = roles.map((item) => item.value) as RoleEnum[]
-    //         this.setRoleList(roleList)
-    //     } else {
-    //         userInfo.roles = []
-    //         this.setRoleList([])
-    //     }
-    //     this.setUserInfo(userInfo)
-    //     return userInfo
-    // }
+
     /** 切换角色 */
     const changeRoles = async (role: string) => {
         const newToken = 'token-' + role

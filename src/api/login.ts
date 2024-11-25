@@ -1,9 +1,8 @@
 import { request } from '../utils/request'
 
 export async function getUserInfoApi(data = {}) {
-    // return request.fetchPost('/api/getUserInfo', data)
     console.log(data, 'getUserInfoApi')
-    return request.fetchPost('http://zjpzjp.com/api/getUserInfo', data)
+    return request.fetchPost('/api/getUserInfo', data)
     // return request.fetchPost<any>(
     //     '',
     //     {},
@@ -29,15 +28,14 @@ export async function getUserInfoApi(data = {}) {
 }
 
 export async function registerApi(data = {}) {
-    // return request.fetchPost('/api/getUserInfo', data)
-    console.log(data, 'getUserInfoApi')
-    return request.fetchPost('http://zjpzjp.com/api/register', data)
+    console.log(data, 'register')
+    return request.fetchPost('/api/register', data)
 }
 
 export async function loginApi(data = {}) {
     // return request.fetchPost('/api/login', data)
     console.log(data, 'loginApiloginApi')
-    return request.fetchPost('http://zjpzjp.com/api/login', data)
+    return request.fetchPost('/api/login', data)
     // return request.fetchPost(
     //     '',
     //     {},
@@ -61,7 +59,7 @@ export async function loginApi(data = {}) {
 }
 
 export async function getMenuListApi(data) {
-    return request.fetchPost('http://zjpzjp.com/api/getUserInfo', data)
+    return request.fetchPost('/api/getMenuList', data)
     // return request.fetchPost<any>(
     //     '',
     //     {},

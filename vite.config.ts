@@ -70,7 +70,10 @@ export default defineConfig({
         headers: {
             'Access-Control-Allow-Origin': '*'
         },
-        port: 7002
+        port: 7002,
+        hmr: {
+            overlay: true // 显示错误提示
+        }
     },
     css: {
         postcss: {

@@ -52,6 +52,7 @@ router.beforeEach(async (to, _from, next) => {
         try {
             // 因为我的业务流程是根据token 去请求用户信息，所以这里需要判断token是否过期
             // 如果是登录时直接获取用户信息就不用这一步了
+            console.log('走这了吗')
             await userStore.getUserInfoAction({ token })
         } catch (err) {
             next()

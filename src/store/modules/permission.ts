@@ -6,6 +6,7 @@ import { PAGE_NOT_FOUND_ROUTE, baseRoutes } from '@/router/index'
 import { RouteRecordRaw } from 'vue-router'
 import { getMenuListApi } from '@/api/login'
 import { flatMultiLevelRoutes, transformObjToRoute, transformRouteToMenu } from '@/router/utils'
+import { getToken } from '@/utils/cookies'
 // // import { flatMultiLevelRoutes } from '@/router/helper'
 // // import routeSettings from '@/config/route'
 // const routeSettings = {
@@ -62,7 +63,8 @@ export const usePermissionStore = defineStore('permission', () => {
         // const userStore = useUserStore()
         // const appStore = useAppStoreWithOut()
         let routes: any[] = []
-        let { menuList: routeList } = await getMenuListApi({})
+        const token = getToken()
+        let { menuList: routeList } = await getMenuListApi({ token })
         console.log(routeList, 'getMenuListApi')
         routeList = transformObjToRoute(routeList)
         //  后台路由到菜单结构
