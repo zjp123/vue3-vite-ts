@@ -79,12 +79,10 @@ import {
     // loginApi,
     registerApi
 } from '@/api/login'
-
 defineOptions({
     name: 'LoginCom',
     inheritAttrs: false
 })
-
 const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
