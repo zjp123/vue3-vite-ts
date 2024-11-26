@@ -41,6 +41,7 @@ routerHistory.beforeEach(async (to, _from, next) => {
         } else {
             NProgress.done()
             next()
+            return
         }
     }
     const permissionStore = usePermissionStoreWithout()

@@ -12,9 +12,9 @@ const mode = process.env.NODE_ENV as string
 const env = loadEnv(mode, root)
 const viteEnv = wrapperEnv(env)
 // console.log(viteEnv, 'viteEnvviteEnv')
-const { VITE_DROP_CONSOLE } = viteEnv
+const { VITE_DROP_CONSOLE, VITE_BASE_API } = viteEnv
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
-
+console.log(VITE_BASE_API, 'VITE_BASE_APIVITE_BASE_API')
 // import {name} from './package'
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -72,7 +72,17 @@ export default defineConfig({
         headers: {
             'Access-Control-Allow-Origin': '*'
         },
-        port: 7002
+        port: 7002,
+        proxy: {
+            /** 代理前缀为 /dev-api 的请求  */
+            '/api': {
+                changeOrigin: true,
+                // 接口地址
+                target: VITE_BASE_API,
+                secure: false
+                // rewrite: (path) => path.replace(new RegExp('^' + env.VITE_APP_BASE_API), ''),
+            }
+        }
     },
     css: {
         postcss: {
