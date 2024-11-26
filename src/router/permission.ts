@@ -38,6 +38,9 @@ routerHistory.beforeEach(async (to, _from, next) => {
             }
             next({ path: '/login', replace: true, query })
             return
+        } else {
+            NProgress.done()
+            next()
         }
     }
     const permissionStore = usePermissionStoreWithout()
